@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather/model/cities.dart';
 import 'package:weather/model/weather_data.dart';
 
 import '../databasehelper.dart';
@@ -34,14 +37,25 @@ class GlobalController extends GetxController {
   }
 
   @override
-  void onInit() {
-    if (_isLoading.isTrue) {
+  void onInit() async {
+   /* if (_isLoading.isTrue) {
       getLocation();
     } else{
       getIndex();
-    }
+    }*/
     super.onInit();
     checkConnection();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.containsKey('lat') == false){
+      getLocation();
+      //_isLoading.isFalse;
+      
+    } else{
+      getIndex();
+      getRefresh();
+    }
   }
 
   checkConnection() async{
@@ -52,6 +66,12 @@ class GlobalController extends GetxController {
   getLocation() async {
     bool isServiceEnabled;
     LocationPermission locationPermission;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    /*Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    File file = File('${appDocPath}/1.txt');*/
 
     isServiceEnabled = await Geolocator.isLocationServiceEnabled();
 
@@ -75,22 +95,36 @@ class GlobalController extends GetxController {
 
     return await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high)
-        .then((value) {
+        .then((value) async {
       _latitude.value = value.latitude;
       _longitude.value = value.longitude;
+
+      prefs.setInt('c_id', 1);
+      prefs.setDouble('lat', _latitude.value);
+      prefs.setDouble('lon', _longitude.value);
+
+      List<Placemark> placemark = await placemarkFromCoordinates(_latitude.value, _longitude.value);
+      Placemark place = placemark[0];
+
+      Cities cities = Cities(c_id: 1, country: place.country!, name: place.locality!, lat: _latitude.value, lon: _longitude.value, defaults: "true", sets: "true");
+      _dbHelper.insertCities(cities);
 
       return FetchWeatherAPI().processData(value.latitude, value.longitude)
         .then((value) {
           weatherData.value = value;
           _isLoading.value = false;
-          //print(weatherData.value.toString());
+          //file.writeAsStringSync(getData().toString());
+          //print("Write Successful");
       });
 
     });
   }
 
   getRefresh() async{
-    return FetchWeatherAPI().processData(_latitude, _longitude)
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    return FetchWeatherAPI().processData(prefs.getDouble('lat'), prefs.getDouble('lon'))
         .then((value) {
       weatherData.value = value;
       _isLoading.value = false;

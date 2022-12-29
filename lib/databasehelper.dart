@@ -5,6 +5,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:weather/model/cities.dart';
 
+import 'model/auto_cities.dart';
+
 class DatabaseHelper{
 
   Database? database;
@@ -27,7 +29,7 @@ class DatabaseHelper{
       );
       await File(path).writeAsBytes(bytes, flush:true);
       await openDatabase(path, onOpen: (path){
-        path.execute("CREATE TABLE choices(c_id INTEGER PRIMARY KEY, country TEXT, name TEXT, lat REAL, lon REAL)");
+        path.execute("CREATE TABLE choices(c_id INTEGER PRIMARY KEY, country TEXT, name TEXT, lat REAL, lon REAL, defaults TEXT, sets TEXT)");
       });
     }
     return await openDatabase(path);
@@ -58,10 +60,10 @@ class DatabaseHelper{
     }).toList();
   }*/
 
-  Future<List<Cities>> selectedCities() async{
+  Future<List<AutoCities>> selectedCities() async{
     final db = await openDb();
     var cityData = await db?.rawQuery("select c_id, lat, lon, country, name || ', ' || country as name from Cities");
-    List<Cities> cityMap = cityData!.map((e) => Cities.fromMap(e)).toList();
+    List<AutoCities> cityMap = cityData!.map((e) => AutoCities.fromMap(e)).toList();
     return cityMap;
   }
 
@@ -81,6 +83,12 @@ class DatabaseHelper{
   deleteCity(int c_id) async{
     final db = await openDb();
     return db?.delete("choices", where: "c_id = ?", whereArgs: [c_id]);
+  }
+
+  setCity(Cities cities) async{
+    final db = await openDb();
+    var response = await db?.update("choices", cities.toMap(), where: "c_id = ?", whereArgs: [cities.c_id]);
+    return response;
   }
 
 }

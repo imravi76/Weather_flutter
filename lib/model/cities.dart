@@ -11,8 +11,10 @@ class Cities{
   final String name;
   final double lat;
   final double lon;
+  final String defaults;
+  final String sets;
 
-  Cities({required this.c_id, required this.country, required this.name, required this.lat, required this.lon});
+  Cities({required this.c_id, required this.country, required this.name, required this.lat, required this.lon, required this.defaults, required this.sets});
 
   Map<String, dynamic> toMap() => {
     "c_id": c_id,
@@ -20,6 +22,8 @@ class Cities{
     "name": name,
     "lat": lat,
     "lon": lon,
+    "defaults": defaults,
+    "sets": sets,
   };
 
   factory Cities.fromMap(Map<String, dynamic> json) => Cities(
@@ -27,6 +31,8 @@ class Cities{
     country: json['country'],
     name: json['name'],
     lat: json['lat'],
-    lon: json['lon']
+    lon: json['lon'],
+    defaults: json['defaults'],
+    sets: json['sets'],
   );
 }

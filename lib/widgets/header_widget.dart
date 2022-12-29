@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controller/global_controller.dart';
 
 class Header extends StatefulWidget {
@@ -23,16 +24,20 @@ class _HeaderState extends State<Header> {
 
   @override
   void initState() {
-    getAddress(globalController.getLatitude().value,
-        globalController.getLongitude().value);
+    getAddress();
     super.initState();
     connection = globalController.connection;
   }
 
-  getAddress(lat, lon) async {
-    List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
+  getAddress() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    double? lat = prefs.getDouble('lat');
+    double? lon = prefs.getDouble('lon');
+
+    List<Placemark> placemark = await placemarkFromCoordinates(lat!, lon!);
     Placemark place = placemark[0];
-    print(place);
     setState(() {
       City = place.locality!;
       Country = "${place.administrativeArea!}, ${place.country!}";
