@@ -91,4 +91,10 @@ class DatabaseHelper{
     return response;
   }
 
+  defaultCity() async{
+    final db = await openDb();
+    var response = await db?.rawUpdate("update choices set sets = 'false'");
+    return response;
+  }
+
 }

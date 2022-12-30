@@ -227,6 +227,8 @@ class _CityTabState extends State<CityTab> {
 
                             Cities citi = Cities(c_id: cities.c_id, country: cities.country, name: cities.name, lat: cities.lat, lon: cities.lon, defaults: cities.defaults, sets: "true");
 
+                            _dbHelper.defaultCity();
+
                             _dbHelper.setCity(citi);
                             Navigator.push(
                               context,

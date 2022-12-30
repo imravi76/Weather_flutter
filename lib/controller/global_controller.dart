@@ -85,7 +85,7 @@ class GlobalController extends GetxController {
       locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {
         exit(0);
-        return Future.error('Location permissions are denied');
+        //return Future.error('Location permissions are denied');
       }
     }
 
@@ -102,6 +102,7 @@ class GlobalController extends GetxController {
       prefs.setInt('c_id', 1);
       prefs.setDouble('lat', _latitude.value);
       prefs.setDouble('lon', _longitude.value);
+      //prefs.setString('units', 'metric');
 
       List<Placemark> placemark = await placemarkFromCoordinates(_latitude.value, _longitude.value);
       Placemark place = placemark[0];
