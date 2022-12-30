@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/cities.dart';
 import 'package:weather/model/weather_data.dart';
@@ -18,11 +19,17 @@ class GlobalController extends GetxController {
   final RxDouble _longitude = 0.0.obs;
   final RxInt _currentIndex = 0.obs;
   final RxInt tabIndex = 0.obs;
-  bool connection = false;
+  RxBool connection = false.obs;
+
+  final Connectivity _connectivity = Connectivity();
+
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   RxBool checkLoading() => _isLoading;
   RxDouble getLatitude() => _latitude;
   RxDouble getLongitude() => _longitude;
+
+  RxBool checkConnection() => connection;
 
   final weatherData = WeatherData().obs;
 
@@ -44,6 +51,9 @@ class GlobalController extends GetxController {
       getIndex();
     }*/
     super.onInit();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(updateConnectionState);
+
     checkConnection();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,9 +68,10 @@ class GlobalController extends GetxController {
     }
   }
 
-  checkConnection() async{
-    await InternetConnectionChecker().hasConnection.then(
-            (value) => connection = value);
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
   }
 
   getLocation() async {
@@ -102,7 +113,7 @@ class GlobalController extends GetxController {
       prefs.setInt('c_id', 1);
       prefs.setDouble('lat', _latitude.value);
       prefs.setDouble('lon', _longitude.value);
-      //prefs.setString('units', 'metric');
+      prefs.setString('units', 'metric');
 
       List<Placemark> placemark = await placemarkFromCoordinates(_latitude.value, _longitude.value);
       Placemark place = placemark[0];
@@ -137,6 +148,13 @@ class GlobalController extends GetxController {
     return _currentIndex;
   }
 
+  Future< void > updateConnectionState(ConnectivityResult result) async {
+    // connectivity status
+    if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+      connection = true.obs;
+    }else{
+      connection = false.obs;
+    }
+  }
+
 }
-
-

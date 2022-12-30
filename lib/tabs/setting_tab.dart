@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingTab extends StatefulWidget {
   const SettingTab({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _SettingTabState extends State<SettingTab> {
         child: Container(
             padding: const EdgeInsets.all(20),
             child:
-                ExpansionTile(title: const Text("Measurement Units"), subtitle: Text(_value!), children: [
+                ExpansionTile(title: const Text("Measurement Units"), subtitle: const Text("Choose your preferred Unit!"), children: [
                   RadioListTile(
                       title: const Text("Metric (°C)"),
                       value: "metric",
@@ -44,6 +45,8 @@ class _SettingTabState extends State<SettingTab> {
                       onChanged: (value) {
                         setState(() {
                           _value = value.toString();
+
+                          setUnits(_value);
                         });
                       }),
                   RadioListTile(
@@ -54,6 +57,8 @@ class _SettingTabState extends State<SettingTab> {
                       onChanged: (value) {
                         setState(() {
                           _value = value.toString();
+
+                          setUnits(_value);
                         });
                       }),
                 ],
@@ -61,5 +66,11 @@ class _SettingTabState extends State<SettingTab> {
         ),
       ),
     );
+  }
+
+  void setUnits(String? value) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('units', _value!);
   }
 }

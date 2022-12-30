@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:localstorage/localstorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/alert.dart';
 import 'model/weather_data.dart';
@@ -59,7 +60,11 @@ class FetchWeatherAPI{
 
   Future<WeatherData> getDataFromAPI(lat, lon) async{
 
-    var response = await http.get(Uri.parse(apiURL(lat, lon, apiKey)));
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var units = prefs.getString('units');
+
+    var response = await http.get(Uri.parse(apiURL(lat, lon, apiKey, units)));
     var jsonString = jsonDecode(response.body);
 
     weatherData = WeatherData(WeatherDataCurrent.fromJson(jsonString),
@@ -79,9 +84,9 @@ class FetchWeatherAPI{
 
 }
 
-String apiURL(var lat, var lon, var apiKey){
+String apiURL(var lat, var lon, var apiKey, units){
   String url;
 
-  url = "https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=$apiKey&units=metric&exclude=minutely";
+  url = "https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=$apiKey&units=$units&exclude=minutely";
   return url;
 }

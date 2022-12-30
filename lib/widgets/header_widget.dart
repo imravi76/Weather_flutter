@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controller/global_controller.dart';
@@ -17,7 +16,6 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   String City = "";
   String Country = "";
-  bool connection = false;
 
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
@@ -26,7 +24,6 @@ class _HeaderState extends State<Header> {
   void initState() {
     getAddress();
     super.initState();
-    connection = globalController.connection;
   }
 
   getAddress() async {
@@ -71,7 +68,7 @@ class _HeaderState extends State<Header> {
                 style: const TextStyle(fontSize: 35, height: 2),
               ),
             ),
-            connection == true ? Container(
+            globalController.checkConnection() == true ? Container(
               margin: const EdgeInsets.only(right: 20),
               height: 5, width: 5, decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.greenAccent),
             ): Container(
