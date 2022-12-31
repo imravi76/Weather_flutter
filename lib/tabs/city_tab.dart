@@ -7,6 +7,7 @@ import 'package:weather/main.dart';
 import '../databasehelper.dart';
 import '../model/auto_cities.dart';
 import '../model/cities.dart';
+import '../screens/add_city.dart';
 
 class CityTab extends StatefulWidget {
   const CityTab({Key? key}) : super(key: key);
@@ -135,128 +136,135 @@ class _CityTabState extends State<CityTab> {
             thickness: 4,
             color: Color(0xFFF8F8F8),
           ),
-          Flexible(child: FutureBuilder(
-            initialData: const[],
-            future: _dbHelper.getCities(),
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                //print(snapshot.data!.length);
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context, index){
-                    Cities cities = snapshot.data![index];
-                    String sets = cities.sets;
-                    String dafaults = cities.defaults;
-                    return Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Dismissible(
-                        key: UniqueKey(),
-                        background: Container(
-                          color: Colors.red,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: const <Widget>[
-                                Icon(
-                                  Icons.delete,
-                                  color:Colors.white,
-                                ),
-                                Text(
-                                  "Delete",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  textAlign: TextAlign.right,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        confirmDismiss: (direction) async{
-                          final bool res = await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: const Text(
-                                      "Are you sure you want to delete this City?"),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: const Text(
-                                        "Cancel",
-                                        style: TextStyle(color: Colors.black),
+          Flexible(
+            child: FutureBuilder(
+                  initialData: const[],
+                  future: _dbHelper.getCities(),
+                  builder: (context, snapshot){
+                    if(snapshot.hasData){
+                      //print(snapshot.data!.length);
+                      return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (context, index){
+                          Cities cities = snapshot.data![index];
+                          String sets = cities.sets;
+                          String dafaults = cities.defaults;
+                          return Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Dismissible(
+                              key: UniqueKey(),
+                              background: Container(
+                                color: Colors.red,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: const <Widget>[
+                                      Icon(
+                                        Icons.delete,
+                                        color:Colors.white,
                                       ),
-                                      onPressed: () {
-                                        Navigator.pop(context, false);
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: const Text(
+                                      Text(
                                         "Delete",
-                                        style: TextStyle(color: Colors.red),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.right,
                                       ),
-                                      onPressed: () {
-                                        if(dafaults == "false"){
-                                          _dbHelper.deleteCity(cities.c_id);
-                                          Navigator.pop(context, true);
-                                        } else{
-                                          Navigator.pop(context, false);
-                                        }
-                                      },
+                                      SizedBox(
+                                        width: 20,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              confirmDismiss: (direction) async{
+                                final bool res = await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        content: const Text(
+                                            "Are you sure you want to delete this City?"),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text(
+                                              "Cancel",
+                                              style: TextStyle(color: Colors.black),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context, false);
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: const Text(
+                                              "Delete",
+                                              style: TextStyle(color: Colors.red),
+                                            ),
+                                            onPressed: () {
+                                              if(dafaults == "false"){
+                                                _dbHelper.deleteCity(cities.c_id);
+                                                Navigator.pop(context, true);
+                                              } else{
+                                                Navigator.pop(context, false);
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    });
+                                return res;
+
+                              },
+                              child: GestureDetector(
+                                onTap: () async {
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                                  prefs.setInt('c_id', cities.c_id);
+                                  prefs.setDouble('lat', cities.lat);
+                                  prefs.setDouble('lon', cities.lon);
+
+                                  Cities citi = Cities(c_id: cities.c_id, country: cities.country, name: cities.name, lat: cities.lat, lon: cities.lon, defaults: cities.defaults, sets: "true");
+
+                                  _dbHelper.defaultCity();
+
+                                  _dbHelper.setCity(citi);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const MyApp()),
+                                  );
+                                },
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 100.0,
+                                  child: Center(
+                                    child: ListTile(
+                                      title: Text(cities.name, style: TextStyle(fontSize: 16, color: sets == "true" ? Colors.blue : null),),
+                                      subtitle: Text(cities.country, style: TextStyle(fontSize: 12, color: sets == "true" ? Colors.blue : null),),
                                     ),
-                                  ],
-                                );
-                              });
-                          return res;
-
-                        },
-                        child: GestureDetector(
-                          onTap: () async {
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
-
-                            prefs.setInt('c_id', cities.c_id);
-                            prefs.setDouble('lat', cities.lat);
-                            prefs.setDouble('lon', cities.lon);
-
-                            Cities citi = Cities(c_id: cities.c_id, country: cities.country, name: cities.name, lat: cities.lat, lon: cities.lon, defaults: cities.defaults, sets: "true");
-
-                            _dbHelper.defaultCity();
-
-                            _dbHelper.setCity(citi);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MyApp()),
-                            );
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            height: 100.0,
-                            child: Center(
-                              child: ListTile(
-                                title: Text(cities.name, style: TextStyle(fontSize: 16, color: sets == "true" ? Colors.blue : null),),
-                                subtitle: Text(cities.country, style: TextStyle(fontSize: 12, color: sets == "true" ? Colors.blue : null),),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    );
+                          );
 
+                        },
+                      );
+                    } else{
+                      return const Center(child: CircularProgressIndicator(),);
+                    }
                   },
-                );
-              } else{
-                return const Center(child: CircularProgressIndicator(),);
-              }
+                ),
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
             },
-          ),)
+              child: Text("Not found your city in list? Manually add your city.", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline))),
         ],
       ),
     );

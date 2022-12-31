@@ -47,6 +47,7 @@ dependencies:
   shared_preferences: ^2.0.15
   localstorage: ^4.0.0+1
   connectivity_plus: ^3.0.2
+  flutter_launcher_icons: ^0.11.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,11 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "assets/icon.png"
+
 flutter:
 
   # The following line ensures that the Material Icons font is
