@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+enum Units {metric, imperial}
 
 class SettingTab extends StatefulWidget {
   const SettingTab({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class SettingTab extends StatefulWidget {
 
 class _SettingTabState extends State<SettingTab> {
 
-  String? _value = "metric";
+  Units? _values = Units.metric;
 
   @override
   Widget build(BuildContext context) {
@@ -38,39 +39,35 @@ class _SettingTabState extends State<SettingTab> {
             padding: const EdgeInsets.all(20),
             child:
                 ExpansionTile(title: const Text("Measurement Units"), subtitle: const Text("Choose your preferred Unit!"), children: [
-                  RadioListTile(
+                  ListTile(
                       title: const Text("Metric (°C)"),
-                      value: "metric",
-                      groupValue: _value,
-                      onChanged: (value) {
-                        setState(() {
-                          _value = value.toString();
-
-                          setUnits(_value);
-                        });
-                      }),
-                  RadioListTile(
+                      leading: Radio<Units>(
+                  value: Units.metric,
+                        groupValue: _values,
+                        onChanged: (Units? value){
+                    setState(() {
+                      _values = value;
+                    });
+                        },
+                      )
+                      ),
+                  ListTile(
                     //toggleable: selected,
                       title: const Text("Imperial (°F)"),
-                      value: "imperial",
-                      groupValue: _value,
-                      onChanged: (value) {
-                        setState(() {
-                          _value = value.toString();
-
-                          setUnits(_value);
-                        });
-                      }),
+                  leading: Radio<Units>(
+                    value: Units.imperial,
+                    groupValue: _values,
+                    onChanged: (Units? value){
+                      setState(() {
+                        _values = value;
+                      });
+                    }
+                  ),
+                  ),
                 ],
                 ),
         ),
       ),
     );
-  }
-
-  void setUnits(String? value) async{
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    prefs.setString('units', _value!);
   }
 }

@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:open_settings/open_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/cities.dart';
 import 'package:weather/model/weather_data.dart';
@@ -45,11 +46,6 @@ class GlobalController extends GetxController {
 
   @override
   void onInit() async {
-   /* if (_isLoading.isTrue) {
-      getLocation();
-    } else{
-      getIndex();
-    }*/
     super.onInit();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(updateConnectionState);
@@ -60,8 +56,6 @@ class GlobalController extends GetxController {
 
     if(prefs.containsKey('lat') == false){
       getLocation();
-      //_isLoading.isFalse;
-      
     } else{
       getIndex();
       getRefresh();
@@ -80,56 +74,57 @@ class GlobalController extends GetxController {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    /*Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-    File file = File('${appDocPath}/1.txt');*/
-
     isServiceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!isServiceEnabled) {
-      return Future.error("Location Disabled!");
-    }
+      return OpenSettings.openLocationSourceSetting();
+    } else {
 
-    locationPermission = await Geolocator.checkPermission();
+      locationPermission = await Geolocator.checkPermission();
 
-    if (locationPermission == LocationPermission.denied) {
-      locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {
-        exit(0);
-        //return Future.error('Location permissions are denied');
+        locationPermission = await Geolocator.requestPermission();
+        if (locationPermission == LocationPermission.denied) {
+          exit(0);
+          
+        }
       }
-    }
 
-    if (locationPermission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied.');
-    }
+      if (locationPermission == LocationPermission.deniedForever) {
+        return Future.error('Location permissions are permanently denied.');
+      }
 
-    return await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high)
-        .then((value) async {
-      _latitude.value = value.latitude;
-      _longitude.value = value.longitude;
+      return await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high)
+          .then((value) async {
+        _latitude.value = value.latitude;
+        _longitude.value = value.longitude;
 
-      prefs.setInt('c_id', 1);
-      prefs.setDouble('lat', _latitude.value);
-      prefs.setDouble('lon', _longitude.value);
-      prefs.setString('units', 'metric');
+        prefs.setInt('c_id', 1);
+        prefs.setDouble('lat', _latitude.value);
+        prefs.setDouble('lon', _longitude.value);
+        prefs.setString('units', 'metric');
 
-      List<Placemark> placemark = await placemarkFromCoordinates(_latitude.value, _longitude.value);
-      Placemark place = placemark[0];
+        List<Placemark> placemark = await placemarkFromCoordinates(
+            _latitude.value, _longitude.value);
+        Placemark place = placemark[0];
 
-      Cities cities = Cities(c_id: 1, country: place.country!, name: place.locality!, lat: _latitude.value, lon: _longitude.value, defaults: "true", sets: "true");
-      _dbHelper.insertCities(cities);
+        Cities cities = Cities(c_id: 1,
+            country: place.country!,
+            name: place.locality!,
+            lat: _latitude.value,
+            lon: _longitude.value,
+            defaults: "true",
+            sets: "true");
+        _dbHelper.insertCities(cities);
 
-      return FetchWeatherAPI().processData(value.latitude, value.longitude)
-        .then((value) {
+        return FetchWeatherAPI().processData(value.latitude, value.longitude)
+            .then((value) {
           weatherData.value = value;
           _isLoading.value = false;
-          //file.writeAsStringSync(getData().toString());
-          //print("Write Successful");
+        });
       });
-
-    });
+    }
   }
 
   getRefresh() async{
@@ -140,7 +135,6 @@ class GlobalController extends GetxController {
         .then((value) {
       weatherData.value = value;
       _isLoading.value = false;
-      //print(weatherData.value.toString());
     });
   }
 
@@ -149,7 +143,7 @@ class GlobalController extends GetxController {
   }
 
   Future< void > updateConnectionState(ConnectivityResult result) async {
-    // connectivity status
+    
     if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
       connection = true.obs;
     }else{
