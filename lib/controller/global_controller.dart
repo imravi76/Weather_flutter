@@ -55,7 +55,7 @@ class GlobalController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(prefs.containsKey('lat') == false){
-      getLocation();
+      getLocation(prefs);
     } else{
       getIndex();
       getRefresh();
@@ -68,11 +68,9 @@ class GlobalController extends GetxController {
     super.dispose();
   }
 
-  getLocation() async {
+  getLocation(prefs) async {
     bool isServiceEnabled;
     LocationPermission locationPermission;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     isServiceEnabled = await Geolocator.isLocationServiceEnabled();
 
