@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/controller/global_controller.dart';
-import 'package:weather/screens/home_screen.dart';
+import 'package:weather/tabs/home_tab.dart';
 
 import '../tabs/city_tab.dart';
 import '../tabs/setting_tab.dart';
@@ -42,7 +42,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 //physics: NeverScrollableScrollPhysics(),
                 controller: _tabsPageController,
                 children: const [
-                  HomeScreen(),
+                  HomeTab(),
                   CityTab(),
                   SettingTab()
                 ],

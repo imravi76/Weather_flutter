@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -10,20 +11,21 @@ import '../widgets/daily_weather_widget.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/hourly_weather_widget.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeTab extends StatefulWidget {
+  const HomeTab({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeTab> createState() => _HomeTabState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeTabState extends State<HomeTab> {
 
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
+    timer();
     return Scaffold(
       body: LiquidPullToRefresh(
         color: CustomColors.dividerLine,
@@ -69,6 +71,17 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ),
       ),
+    );
+  }
+
+  void timer() {
+    Timer(
+        const Duration(seconds: 3),(){
+      globalController.getRefresh();
+      setState(() {
+
+      });
+    }
     );
   }
 }

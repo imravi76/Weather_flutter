@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controller/global_controller.dart';
-import 'package:weather/main.dart';
 
 import '../databasehelper.dart';
 import '../model/auto_cities.dart';
@@ -232,10 +231,8 @@ class _CityTabState extends State<CityTab> {
                                   _dbHelper.defaultCity();
 
                                   _dbHelper.setCity(citi);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const MyApp()),
+                                  Navigator.pop(
+                                    context
                                   );
                                 },
                                 child: Container(
@@ -262,7 +259,11 @@ class _CityTabState extends State<CityTab> {
           ),
           GestureDetector(
             onTap: (){
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddCity()),
+              );
             },
               child: Text("Not found your city in list? Manually add your city.", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline))),
         ],
