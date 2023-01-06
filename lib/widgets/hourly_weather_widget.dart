@@ -85,7 +85,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
     return ExpansionTile(title: const Text("More Details"),
     children: [
       Container(
-          height: 300,
+          height: 220,
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.only(left: 20),
           child: Column(
@@ -209,7 +209,17 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                       color: CustomColors.cardColor,
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Image.asset("assets/icons/windsock.png"),
+                    child: Image.asset("assets/icons/rain.png"),
+                  ),
+                  Container(
+                    height: 60,
+                    width: 60,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: CustomColors.cardColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Image.asset("assets/icons/visibility.png"),
                   ),
                 ],
               ),
@@ -228,58 +238,21 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                     ),
                   ),
                   SizedBox(
-                    height: 20, width: 60,
-                    child: Text(
-                      "${widget.weatherDataHourly.hourly[cardIndex.toInt()].windSpeed} Km/h",
-                      style: const TextStyle(fontSize: 12),
-                      textAlign: TextAlign.center,
-                    ),
+                    height: 20, width: 80,
+                    child: Row(
+                      children: [
+                        RotationTransition(
+                          turns: AlwaysStoppedAnimation(widget.weatherDataHourly.hourly[cardIndex.toInt()].windDeg! / 360),
+                          child: Image.asset("assets/icons/wind-direction.png"),
+                        ),
+                        Text(
+                          "${widget.weatherDataHourly.hourly[cardIndex.toInt()].windSpeed} Km/h",
+                          style: const TextStyle(fontSize: 12),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )
                   ),
-                  SizedBox(
-                    height: 20, width: 60,
-                    child: Text(
-                      "${widget.weatherDataHourly.hourly[cardIndex.toInt()].windDeg}",
-                      style: const TextStyle(fontSize: 12),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: 60,
-                    width: 60,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: CustomColors.cardColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Image.asset("assets/icons/rain.png"),
-                  ),
-                  Container(
-                    height: 60,
-                    width: 60,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: CustomColors.cardColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Image.asset("assets/icons/visibility.png"),
-                  ),
-
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
                   SizedBox(
                     height: 20, width: 60,
                     child: Text(
@@ -298,6 +271,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                   ),
                 ],
               ),
+
             ],
           )
       )
