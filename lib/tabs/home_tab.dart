@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 import 'package:get/get.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:weather/controller/global_controller.dart';
 import 'package:weather/custom_colors.dart';
 
@@ -21,7 +20,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
 
@@ -33,9 +31,9 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     var hour = DateTime.now().hour;
-    if(hour<18 && hour>6){
+    if (hour < 18 && hour > 6) {
       day = "Day";
-    } else{
+    } else {
       day = "Night";
     }
   }
@@ -43,13 +41,76 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     timer();
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () => globalController.getRefresh(),
+        child: Stack(
+          children: [
+            WeatherBg(
+              width: MediaQuery.of(context).size.width,
+              weatherType: weatherType,
+              height: MediaQuery.of(context).size.height,
+            ),
+            SafeArea(
+              child: Obx(() => globalController.checkLoading().isTrue
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Center(
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Header(),
+                          CurrentWeather(
+                            weatherDataCurrent:
+                                globalController.getData().getCurrentWeather(),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          HourlyWeather(
+                            weatherDataHourly:
+                                globalController.getData().getHourlyWeather(),
+                          ),
+                          DailyWeather(
+                            weatherDataDaily:
+                                globalController.getData().getDailyWeather(),
+                          ),
+                          Container(
+                            height: 1,
+                            color: CustomColors.dividerLine,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          AlertsWeather(
+                            weatherDataAlert:
+                                globalController.getData().getAlertWeather(),
+                          ),
+                        ],
+                      ),
+                    )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-    if(globalController.getData() == null){
-      //newTimer();
-      switch(globalController.getData().getCurrentWeather().current.weather?[0].main){
-
+  void timer() {
+    Timer(const Duration(seconds: 3), () {
+      globalController.getRefresh();
+      switch (globalController
+          .getData()
+          .getCurrentWeather()
+          .current
+          .weather?[0]
+          .main) {
         case "Clear":
-          switch(day){
+          switch (day) {
             case "Day":
               weatherType = WeatherType.sunny;
               break;
@@ -63,7 +124,7 @@ class _HomeTabState extends State<HomeTab> {
           break;
 
         case "Clouds":
-          switch(day){
+          switch (day) {
             case "Day":
               weatherType = WeatherType.cloudy;
               break;
@@ -77,7 +138,12 @@ class _HomeTabState extends State<HomeTab> {
           break;
 
         case "Snow":
-          switch(globalController.getData().getCurrentWeather().current.weather?[0].description){
+          switch (globalController
+              .getData()
+              .getCurrentWeather()
+              .current
+              .weather?[0]
+              .description) {
             case "light snow":
               weatherType = WeatherType.lightSnow;
               break;
@@ -94,7 +160,12 @@ class _HomeTabState extends State<HomeTab> {
           break;
 
         case "Rain":
-          switch(globalController.getData().getCurrentWeather().current.weather?[0].description){
+          switch (globalController
+              .getData()
+              .getCurrentWeather()
+              .current
+              .weather?[0]
+              .description) {
             case "light rain":
               weatherType = WeatherType.lightRainy;
               break;
@@ -133,74 +204,7 @@ class _HomeTabState extends State<HomeTab> {
         default:
           weatherType = WeatherType.sunny;
       }
-    }
-
-    return Scaffold(
-      body: LiquidPullToRefresh(
-        animSpeedFactor: 5.0,
-        color: CustomColors.dividerLine,
-        showChildOpacityTransition: true,
-        onRefresh: () => globalController.getRefresh(),
-        child: SafeArea(
-          child: Obx(() => globalController.checkLoading().isTrue
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Center(
-                child: Stack(
-                  children: [
-                    WeatherBg(
-                      width: MediaQuery.of(context).size.width,
-                      weatherType: weatherType,
-                      height: MediaQuery.of(context).size.height,
-                    ),
-                    ListView(
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Header(),
-                          CurrentWeather(
-                            weatherDataCurrent: globalController.getData().getCurrentWeather(),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          HourlyWeather(
-                            weatherDataHourly: globalController.getData().getHourlyWeather(),
-                          ),
-                          DailyWeather(
-                            weatherDataDaily: globalController.getData().getDailyWeather(),
-                          ),
-                          Container(
-                            height: 1,
-                            color: CustomColors.dividerLine,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                         AlertsWeather(
-                            weatherDataAlert: globalController.getData().getAlertWeather(),
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
-              )),
-        ),
-      ),
-    );
-  }
-
-  void timer() {
-    Timer(
-        const Duration(seconds: 3),(){
-      globalController.getRefresh();
-      setState(() {
-
-      });
-    }
-    );
+      setState(() {});
+    });
   }
 }
