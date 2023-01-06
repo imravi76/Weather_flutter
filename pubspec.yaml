@@ -49,6 +49,7 @@ dependencies:
   connectivity_plus: ^3.0.2
   flutter_launcher_icons: ^0.11.0
   open_settings: ^2.0.2
+  flutter_weather_bg_null_safety: ^1.0.0
 
 dev_dependencies:
   flutter_test:

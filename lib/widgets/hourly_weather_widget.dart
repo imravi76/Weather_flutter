@@ -37,6 +37,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
 
   Widget hourlyList(){
     return Container(
+      //color: Colors.transparent,
       height: 160,
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: ListView.builder(
@@ -65,7 +66,10 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                 gradient: cardIndex.value == index ? const LinearGradient(colors: [
                   CustomColors.firstGradientColor,
                   CustomColors.secondGradientColor
-                ]) : null
+                ]) : const LinearGradient(colors: [
+                  CustomColors.cardColor,
+                  CustomColors.dividerLine
+                ])
               ),
               child: HourlyDetails(
                 index: index,
@@ -82,7 +86,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
   }
 
   Widget hourlyFullDetails(){
-    return ExpansionTile(title: const Text("More Details"),
+    return ExpansionTile(title: const Text("More Details"), textColor: Colors.white,
     children: [
       Container(
           height: 220,
@@ -328,4 +332,3 @@ class HourlyDetails extends StatelessWidget {
     );
   }
 }
-

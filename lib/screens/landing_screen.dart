@@ -14,7 +14,6 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-
   late PageController _tabsPageController;
 
   int _selectedTab = GlobalController().changeTabIndex();
@@ -39,15 +38,11 @@ class _LandingScreenState extends State<LandingScreen> {
         children: [
           Expanded(
               child: PageView(
-                //physics: NeverScrollableScrollPhysics(),
-                controller: _tabsPageController,
-                children: const [
-                  HomeTab(),
-                  CityTab(),
-                  SettingTab()
-                ],
+            //physics: NeverScrollableScrollPhysics(),
+            controller: _tabsPageController,
+                children: const [HomeTab(), CityTab(), SettingTab()],
 
-            onPageChanged: (num){
+            onPageChanged: (num) {
               setState(() {
                 _selectedTab = num;
               });
@@ -55,9 +50,8 @@ class _LandingScreenState extends State<LandingScreen> {
           )),
           BottomTabs(
             selectedTab: _selectedTab,
-            tabPressed: (num){
-              _tabsPageController.animateToPage(
-                  num,
+            tabPressed: (num) {
+              _tabsPageController.animateToPage(num,
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOutCubic);
             },
