@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
+
 enum Units { metric, imperial }
 
 class SettingTab extends StatefulWidget {
@@ -121,10 +123,22 @@ class _SettingTabState extends State<SettingTab> {
 
     if (values == Units.metric) {
       prefs.setString('units', 'metric');
-      setState(() {});
+      setState(() {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+          return const MyApp();
+        }), (r){
+          return false;
+        });
+      });
     } else {
       prefs.setString('units', 'imperial');
-      setState(() {});
+      setState(() {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+          return const MyApp();
+        }), (r){
+          return false;
+        });
+      });
     }
   }
 }

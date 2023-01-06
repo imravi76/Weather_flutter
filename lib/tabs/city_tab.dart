@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controller/global_controller.dart';
+import 'package:weather/main.dart';
 
 import '../databasehelper.dart';
 import '../model/auto_cities.dart';
@@ -231,9 +232,12 @@ class _CityTabState extends State<CityTab> {
                                   _dbHelper.defaultCity();
 
                                   _dbHelper.setCity(citi);
-                                  Navigator.pop(
-                                    context
-                                  );
+
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+                                    return const MyApp();
+                                  }), (r){
+                                    return false;
+                                  });
                                 },
                                 child: Container(
                                   color: Colors.white,
