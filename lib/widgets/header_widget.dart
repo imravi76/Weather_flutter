@@ -65,7 +65,7 @@ class _HeaderState extends State<Header> {
               alignment: Alignment.topLeft,
               child: Text(
                 City,
-                style: const TextStyle(fontSize: 35, height: 2),
+                style: const TextStyle(fontSize: 35, height: 2, color: Colors.white),
               ),
             ),
             globalController.checkConnection() == true ? Container(
@@ -77,7 +77,7 @@ class _HeaderState extends State<Header> {
                 children: const [
                   Icon(Icons.cloud_off),
                   SizedBox(width: 5),
-                  Text("Offline Mode")
+                  Text("Offline Mode", style: TextStyle(color: Colors.white),)
                 ],
               ),
             )
@@ -92,7 +92,7 @@ class _HeaderState extends State<Header> {
               child: Text(
                 Country,
                 style:
-                TextStyle(fontSize: 14, height: 1.5, color: Colors.grey[700]),
+                TextStyle(fontSize: 14, height: 1.5, color: Colors.grey[400]),
               ),
             ),
             Container(
@@ -101,7 +101,7 @@ class _HeaderState extends State<Header> {
               child: Text(
                 "Last Updated: ${getDay(globalController.getData().getCurrentWeather().current.dt)}, ${getTime(globalController.getData().getCurrentWeather().current.dt)}",
                 style:
-                TextStyle(fontSize: 14, height: 1.5, color: Colors.grey[700]),
+                TextStyle(fontSize: 14, height: 1.5, color: Colors.grey[400]),
               ),
             ),
           ],
