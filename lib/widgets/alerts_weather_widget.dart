@@ -29,13 +29,19 @@ class _AlertsWeatherState extends State<AlertsWeather> {
             margin: const EdgeInsets.only(top: 1, left: 20, right: 20, bottom: 20),
             child: const Text("Alerts", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           ),
-          const SizedBox(
-            height: 40,
-            child: Text("No Alerts!"),
+          Container(
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: CustomColors.dividerLine.withAlpha(150)
+            ),
+            child: const Center(child: Text("No Alerts!")),
           )
         ],
       );
-    } else{
+    } else {
       return Column(
         children: [
           Container(

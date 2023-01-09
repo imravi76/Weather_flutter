@@ -20,7 +20,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
 
     return Column(
       children: [
-        tempreatureAreaWidget(),
+        temperatureAreaWidget(),
         const SizedBox(
           height: 20,
         ),
@@ -29,7 +29,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
     );
   }
 
-  Widget tempreatureAreaWidget(){
+  Widget temperatureAreaWidget(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
