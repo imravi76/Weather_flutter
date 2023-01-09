@@ -71,157 +71,198 @@ class _CurrentWeatherState extends State<CurrentWeather> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              height: 60,
-              width: 60,
+              width: 100,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: CustomColors.cardColor,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset("assets/icons/feelslike.png"),
+              child: Column(
+                children: [
+                  Image.asset("assets/icons/feelslike.png"),
+                  const Text("Feels Like", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text(
+                    "${widget.weatherDataCurrent.current.feelsLike}°C",
+                  ),
+                ],
+              ),
             ),
             Container(
-              height: 60,
-              width: 60,
+              width: 100,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: CustomColors.cardColor,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset("assets/icons/sunrise.png"),
+              child: Column(
+                children: [
+                  Image.asset("assets/icons/humidity.png"),
+                  const Text("Humidity", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text(
+                    "${widget.weatherDataCurrent.current.humidity} %",
+                  ),
+                ],
+              ),
             ),
             Container(
-              height: 60,
-              width: 60,
+              width: 100,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: CustomColors.cardColor,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset("assets/icons/sunset.png"),
-            ),
-            Container(
-              height: 60,
-              width: 60,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CustomColors.cardColor,
-                borderRadius: BorderRadius.circular(15),
+              child: Column(
+                children: [
+                  Image.asset("assets/icons/clouds.png"),
+                  const Text("Clouds", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text(
+                    "${widget.weatherDataCurrent.current.clouds} %",
+                  ),
+                ],
               ),
-              child: Image.asset("assets/icons/clouds.png"),
             ),
           ],
         ),
         const SizedBox(
           height: 10,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${widget.weatherDataCurrent.current.feelsLike}°C",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
+        ExpansionTile(title: const Text("Details"),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                width: 100,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: CustomColors.cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset("assets/icons/sunrise.png"),
+                    const Text("Sunrise", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text(
+                      getTime(widget.weatherDataCurrent.current.sunrise),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${getTime(widget.weatherDataCurrent.current.sunrise)}",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
+              Container(
+                //height: 60,
+                width: 100,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: CustomColors.cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset("assets/icons/sunset.png"),
+                    const Text("Sunset", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text(
+                      getTime(widget.weatherDataCurrent.current.sunset),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${getTime(widget.weatherDataCurrent.current.sunset)}",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
+              Container(
+                //height: 60,
+                width: 100,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: CustomColors.cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset("assets/icons/pressure.png"),
+                    const Text("Pressure", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text(
+                      "${(widget.weatherDataCurrent.current.pressure)} hPa",
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${widget.weatherDataCurrent.current.clouds} %",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                //height: 60,
+                width: 100,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: CustomColors.cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset("assets/icons/dew-point.png"),
+                    const Text("Dew Point", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text(
+                      "${widget.weatherDataCurrent.current.dewPoint}",
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              height: 60,
-              width: 60,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CustomColors.cardColor,
-                borderRadius: BorderRadius.circular(15),
+              Container(
+                //height: 60,
+                width: 110,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: CustomColors.cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset("assets/icons/windspeed.png", height: 64, width: 70,),
+                    const Text("Wind Speed", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Row(
+                      children: [
+                        RotationTransition(
+                          turns: AlwaysStoppedAnimation(widget.weatherDataCurrent.current.windDeg! / 360),
+                          child: Image.asset("assets/icons/wind-direction.png", width: 20, height: 20,),
+                        ),
+                        Text(
+                          "${widget.weatherDataCurrent.current.windSpeed} Km/h",
+                          style: const TextStyle(fontSize: 12),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              child: Image.asset("assets/icons/humidity.png"),
-            ),
-            Container(
-              height: 60,
-              width: 60,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CustomColors.cardColor,
-                borderRadius: BorderRadius.circular(15),
+              Container(
+                //height: 60,
+                width: 100,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: CustomColors.cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset("assets/icons/visibility.png"),
+                    const Text("Visibility", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text(
+                      "${(widget.weatherDataCurrent.current.visibility)!/1000} Km",
+                    ),
+                  ],
+                ),
               ),
-              child: Image.asset("assets/icons/windspeed.png"),
-            ),
-            Container(
-              height: 60,
-              width: 60,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CustomColors.cardColor,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Image.asset("assets/icons/visibility.png"),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${widget.weatherDataCurrent.current.humidity} %",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${widget.weatherDataCurrent.current.windSpeed} Km/h",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 20, width: 60,
-              child: Text(
-                "${(widget.weatherDataCurrent.current.visibility)!/1000} Km",
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          )
+        ],),
+
       ],
     );
 

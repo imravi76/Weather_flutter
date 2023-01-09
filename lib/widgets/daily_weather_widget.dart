@@ -108,7 +108,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                         children: [
 
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -118,7 +117,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             child: Image.asset("assets/icons/sunrise.png"),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -128,7 +126,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             child: Image.asset("assets/icons/sunset.png"),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -138,7 +135,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             child: Image.asset("assets/icons/moonrise.png"),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -156,35 +152,55 @@ class _DailyWeatherState extends State<DailyWeather> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              getTime(widget.weatherDataDaily.daily[index].sunrise),
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Sunrise", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  getTime(widget.weatherDataDaily.daily[index].sunrise),
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              getTime(widget.weatherDataDaily.daily[index].sunset),
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Sunset", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  getTime(widget.weatherDataDaily.daily[index].sunset),
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              getTime(widget.weatherDataDaily.daily[index].moonset),
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Moonrise", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  getTime(widget.weatherDataDaily.daily[index].moonset),
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              getTime(widget.weatherDataDaily.daily[index].moonrise),
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Moonset", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  getTime(widget.weatherDataDaily.daily[index].moonrise),
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
 
@@ -197,7 +213,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -208,7 +223,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             ),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -218,7 +232,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             child: Image.asset("assets/icons/humidity.png"),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -228,7 +241,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             child: Image.asset("assets/icons/pressure.png"),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -247,35 +259,55 @@ class _DailyWeatherState extends State<DailyWeather> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              "${widget.weatherDataDaily.daily[index].moonPhase}",
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Moon", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${widget.weatherDataDaily.daily[index].moonPhase}",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              "${widget.weatherDataDaily.daily[index].humidity} %",
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Humidity", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${widget.weatherDataDaily.daily[index].humidity} %",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              "${widget.weatherDataDaily.daily[index].pressure} hPa",
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Pressure", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${widget.weatherDataDaily.daily[index].pressure} hPa",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              "${widget.weatherDataDaily.daily[index].clouds} %",
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Clouds", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${widget.weatherDataDaily.daily[index].clouds} %",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
 
@@ -288,7 +320,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -298,7 +329,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                             child: Image.asset("assets/icons/dew-point.png"),
                           ),
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -309,7 +339,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                           ),
 
                           Container(
-                            height: 60,
                             width: 60,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -327,36 +356,51 @@ class _DailyWeatherState extends State<DailyWeather> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              "${widget.weatherDataDaily.daily[index].dewPoint}°C Td",
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20, width: 80,
-                            child: Row(
+                            width: 65,
+                            child: Column(
                               children: [
-                                RotationTransition(
-                                  turns: AlwaysStoppedAnimation(widget.weatherDataDaily.daily[index].windDeg! / 360),
-                                  child: Image.asset("assets/icons/wind-direction.png"),
-                                ),
+                                const Text("Dew Point", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
-                                  "${widget.weatherDataDaily.daily[index].windSpeed} Km/h",
+                                  "${widget.weatherDataDaily.daily[index].dewPoint}°C Td",
                                   style: const TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
                             ),
                           ),
+                          SizedBox(
+                            width: 80,
+                            child: Column(
+                              children: [
+                                const Text("Wind", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Row(
+                                  children: [
+                                    RotationTransition(
+                                      turns: AlwaysStoppedAnimation(widget.weatherDataDaily.daily[index].windDeg! / 360),
+                                      child: Image.asset("assets/icons/wind-direction.png", width: 20,),
+                                    ),
+                                    Text(
+                                      "${widget.weatherDataDaily.daily[index].windSpeed} Km/h",
+                                      style: const TextStyle(fontSize: 12),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
 
                           SizedBox(
-                            height: 20, width: 60,
-                            child: Text(
-                              "${widget.weatherDataDaily.daily[index].pop} %",
-                              style: const TextStyle(fontSize: 12),
-                              textAlign: TextAlign.center,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Rain", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${widget.weatherDataDaily.daily[index].pop} %",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                         ],
