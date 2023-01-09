@@ -9,6 +9,7 @@ import 'package:weather/custom_colors.dart';
 import '../widgets/alerts_weather_widget.dart';
 import '../widgets/current_weather_widget.dart';
 import '../widgets/daily_weather_widget.dart';
+import '../widgets/glass_morphism.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/hourly_weather_widget.dart';
 
@@ -56,43 +57,47 @@ class _HomeTabState extends State<HomeTab> {
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : Center(
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Header(),
-                          CurrentWeather(
-                            weatherDataCurrent:
-                                globalController.getData().getCurrentWeather(),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          HourlyWeather(
-                            weatherDataHourly:
-                                globalController.getData().getHourlyWeather(),
-                          ),
-                          DailyWeather(
-                            weatherDataDaily:
-                                globalController.getData().getDailyWeather(),
-                          ),
-                          Container(
-                            height: 1,
-                            color: CustomColors.dividerLine,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          AlertsWeather(
-                            weatherDataAlert:
-                                globalController.getData().getAlertWeather(),
-                          ),
-                        ],
+                  : GlassMorphism(
+                blur: 20,
+                opacity: 0.1,
+                    child: Center(
+                        child: ListView(
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Header(),
+                            CurrentWeather(
+                              weatherDataCurrent:
+                                  globalController.getData().getCurrentWeather(),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            HourlyWeather(
+                              weatherDataHourly:
+                                  globalController.getData().getHourlyWeather(),
+                            ),
+                            DailyWeather(
+                              weatherDataDaily:
+                                  globalController.getData().getDailyWeather(),
+                            ),
+                            Container(
+                              height: 1,
+                              color: CustomColors.dividerLine,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            AlertsWeather(
+                              weatherDataAlert:
+                                  globalController.getData().getAlertWeather(),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
+                  )),
             ),
           ],
         ),

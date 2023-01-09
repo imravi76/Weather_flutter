@@ -306,7 +306,6 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                   ),
                 ],
               ),
-
             ],
           )
       )

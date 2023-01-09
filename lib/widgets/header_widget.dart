@@ -99,7 +99,7 @@ class _HeaderState extends State<Header> {
               margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
               alignment: Alignment.topLeft,
               child: Text(
-                "Last Updated: ${getDay(globalController.getData().getCurrentWeather().current.dt)}, ${getTime(globalController.getData().getCurrentWeather().current.dt)}",
+                "Updated: ${getDay(globalController.getData().getCurrentWeather().current.dt)}, ${getTime(globalController.getData().getCurrentWeather().current.dt)}",
                 style:
                 TextStyle(fontSize: 14, height: 1.5, color: Colors.grey[400]),
               ),
