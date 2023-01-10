@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 import 'package:get/get.dart';
 import 'package:weather/controller/global_controller.dart';
@@ -9,7 +8,6 @@ import 'package:weather/custom_colors.dart';
 import '../widgets/alerts_weather_widget.dart';
 import '../widgets/current_weather_widget.dart';
 import '../widgets/daily_weather_widget.dart';
-import '../widgets/glass_morphism.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/hourly_weather_widget.dart';
 
@@ -43,63 +41,52 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     timer();
     return Scaffold(
+      backgroundColor: const Color(0xFFF2F3F8),
       body: RefreshIndicator(
         onRefresh: () => globalController.getRefresh(),
-        child: Stack(
-          children: [
-            WeatherBg(
-              width: MediaQuery.of(context).size.width,
-              weatherType: weatherType,
-              height: MediaQuery.of(context).size.height,
-            ),
-            SafeArea(
-              child: Obx(() => globalController.checkLoading().isTrue
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : GlassMorphism(
-                blur: 20,
-                opacity: 0.1,
-                    child: Center(
-                        child: ListView(
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Header(),
-                            CurrentWeather(
-                              weatherDataCurrent:
-                                  globalController.getData().getCurrentWeather(),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            HourlyWeather(
-                              weatherDataHourly:
-                                  globalController.getData().getHourlyWeather(),
-                            ),
-                            DailyWeather(
-                              weatherDataDaily:
-                                  globalController.getData().getDailyWeather(),
-                            ),
-                            Container(
-                              height: 1,
-                              color: CustomColors.dividerLine,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            AlertsWeather(
-                              weatherDataAlert:
-                                  globalController.getData().getAlertWeather(),
-                            ),
-                          ],
-                        ),
+        child: SafeArea(
+          child: Obx(() => globalController.checkLoading().isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Center(
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
-                  )),
-            ),
-          ],
+                      Header(weatherDataCurrent:
+                      globalController.getData().getCurrentWeather(),),
+                      CurrentWeather(
+                        weatherDataCurrent:
+                            globalController.getData().getCurrentWeather(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      HourlyWeather(
+                        weatherDataHourly:
+                            globalController.getData().getHourlyWeather(),
+                      ),
+                      DailyWeather(
+                        weatherDataDaily:
+                            globalController.getData().getDailyWeather(),
+                      ),
+                      Container(
+                        height: 1,
+                        color: CustomColors.dividerLine,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      AlertsWeather(
+                        weatherDataAlert:
+                            globalController.getData().getAlertWeather(),
+                      ),
+                    ],
+                  ),
+                )),
         ),
       ),
     );
