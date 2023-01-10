@@ -6,8 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controller/global_controller.dart';
 import 'package:weather/model/weather_data_current.dart';
 
-import '../custom_colors.dart';
-
 class Header extends StatefulWidget {
   final WeatherDataCurrent weatherDataCurrent;
 
@@ -131,364 +129,439 @@ class _HeaderState extends State<Header> {
             ),
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(68),
-                  topLeft: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8)),
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 18),
+          child: Container(
+            decoration: BoxDecoration(
               color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
+                  bottomRight: Radius.circular(8.0),
+                  topRight: Radius.circular(68.0)),
               boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.2),
                     offset: const Offset(1.1, 1.1),
                     blurRadius: 10.0),
-              ]),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 48,
-                            width: 2,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff87A0E5).withOpacity(0.5),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Temperature",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  letterSpacing: -0.1,
-                                  color: Colors.grey.withOpacity(0.5),
-                                ),
-                              ),
+              ],
+            ),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 8, right: 8, top: 4),
+                          child: Column(
+                            children: <Widget>[
                               Row(
-                                children: [
-                                  Image.asset("assets/icons/temperature.png",
-                                      width: 28, height: 28),
-                                  Text(
-                                    "${widget.weatherDataCurrent.current.temp!.toDouble()}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      color: Colors.black,
+                                children: <Widget>[
+                                  Container(
+                                    height: 48,
+                                    width: 2,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff87A0E5).withOpacity(0.5),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4.0)),
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 4, bottom: 3),
-                                    child: Text(
-                                      '°C',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        letterSpacing: -0.2,
-                                        color: Colors.grey.withOpacity(0.5),
-                                      ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 4, bottom: 2),
+                                          child: Text(
+                                            'Temperature',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                              letterSpacing: -0.1,
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 28,
+                                              height: 28,
+                                              child: Image.asset(
+                                                  "assets/icons/temperature.png"),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 4, bottom: 3),
+                                              child: Text(
+                                                "${widget.weatherDataCurrent.current.temp!.toDouble()}",
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: Color(0xFF17262A),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 4, bottom: 3),
+                                              child: Text(
+                                                '°C',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  letterSpacing: -0.2,
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ),
+                                  )
                                 ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 48,
-                            width: 2,
-                            decoration: BoxDecoration(
-                              color: const Color(0xffF56E98).withOpacity(0.5),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "Feels Like",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  letterSpacing: -0.1,
-                                  color: Colors.grey.withOpacity(0.5),
-                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
                               ),
                               Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/icons/feelslike.png",
-                                    width: 28,
-                                    height: 28,
-                                  ),
-                                  Text(
-                                    "${widget.weatherDataCurrent.current.feelsLike}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      color: Colors.black,
+                                children: <Widget>[
+                                  Container(
+                                    height: 48,
+                                    width: 2,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffF56E98).withOpacity(0.5),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4.0)),
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, bottom: 3),
-                                    child: Text(
-                                      '°C',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        letterSpacing: -0.2,
-                                        color: Colors.grey.withOpacity(0.5),
-                                      ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 4, bottom: 2),
+                                          child: Text(
+                                            'Feels Like',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                              letterSpacing: -0.1,
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 28,
+                                              height: 28,
+                                              child: Image.asset(
+                                                  "assets/icons/feelslike.png"),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 4, bottom: 3),
+                                              child: Text(
+                                                "${widget.weatherDataCurrent.current.feelsLike}",
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: Color(0xFF17262A),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8, bottom: 3),
+                                              child: Text(
+                                                '°C',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  letterSpacing: -0.2,
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ),
+                                  )
                                 ],
                               )
                             ],
-                          )
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Image.asset(
+                            "assets/weather/${widget.weatherDataCurrent.current.weather![0].icon}.png",
+                            height: 80,
+                            width: 80,
+                          ),
+                          Text(
+                              "${widget.weatherDataCurrent.current.weather![0].description}"),
                         ],
                       )
                     ],
-                  ),
-                  Column(
-                    children: [
-                      Image.asset(
-                        "assets/weather/${widget.weatherDataCurrent.current.weather![0].icon}.png",
-                        height: 80,
-                        width: 80,
-                      ),
-                      Text(
-                          "${widget.weatherDataCurrent.current.weather![0].description}"),
-                    ],
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 24, right: 24, top: 8, bottom: 8),
-                child: Container(
-                  height: 2,
-                  decoration: const BoxDecoration(
-                    color: CustomColors.dividerLine,
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            "assets/icons/humidity.png",
-                            width: 30,
-                            height: 30,
-                          ),
-                          const Text(
-                            "Humidity",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              letterSpacing: -0.2,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        height: 4,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff87A0E5).withOpacity(0.2),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: (widget
-                                      .weatherDataCurrent.current.humidity!
-                                      .toDouble()) /
-                                  2,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  const Color(0xff87A0E5),
-                                  const Color(0xff87A0E5).withOpacity(0.5),
-                                ]),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(4.0)),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "${widget.weatherDataCurrent.current.humidity} %",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: Colors.grey.withOpacity(0.5),
-                        ),
-                      )
-                    ],
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 8, bottom: 8),
+                  child: Container(
+                    height: 2,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF2F3F8),
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            "assets/icons/clouds.png",
-                            width: 30,
-                            height: 30,
-                          ),
-                          Text(
-                            "Clouds",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              letterSpacing: -0.2,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        height: 4,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xffF56E98).withOpacity(0.2),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                        child: Row(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 8, bottom: 16),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
-                              width: (widget.weatherDataCurrent.current.clouds!
-                                      .toDouble()) /
-                                  2,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  Color(0xffF56E98).withOpacity(0.1),
-                                  Color(0xffF56E98),
-                                ]),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0)),
+                            const Text(
+                              'Humidity',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                letterSpacing: -0.2,
+                                color: Color(0xFF253840),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Container(
+                                height: 4,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff87A0E5).withOpacity(0.2),
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(4.0)),
+                                ),
+                                child: Row(
+                                  children: <Widget>[
+                                    Container(
+                                      width: (widget.weatherDataCurrent.current
+                                              .humidity!
+                                              .toDouble()) /
+                                          2,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(colors: [
+                                          const Color(0xff87A0E5),
+                                          const Color(0xff87A0E5).withOpacity(0.5),
+                                        ]),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(4.0)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text(
+                                "${widget.weatherDataCurrent.current.humidity} %",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                  color: Colors.grey.withOpacity(0.5),
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Text(
-                        "${widget.weatherDataCurrent.current.clouds} %",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: Colors.grey.withOpacity(0.5),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            "assets/icons/uvi.png",
-                            width: 30,
-                            height: 30,
-                          ),
-                          Text(
-                            "Uvi",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              letterSpacing: -0.2,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        height: 4,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xffF1B440).withOpacity(0.2),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
+                      Expanded(
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Container(
-                              width: (widget.weatherDataCurrent.current.uvi!
-                                      .toDouble()) *
-                                  5,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  Color(0xffF1B440).withOpacity(0.1),
-                                  Color(0xffF1B440),
-                                ]),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0)),
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text(
+                                  'Clouds',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    letterSpacing: -0.2,
+                                    color: Color(0xFF253840),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Container(
+                                    height: 4,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffF56E98).withOpacity(0.2),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4.0)),
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          width: (widget.weatherDataCurrent
+                                                  .current.clouds!
+                                                  .toDouble()) /
+                                              2,
+                                          height: 4,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(colors: [
+                                              const Color(0xffF56E98)
+                                                  .withOpacity(0.1),
+                                              const Color(0xffF56E98),
+                                            ]),
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(4.0)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 6),
+                                  child: Text(
+                                    "${widget.weatherDataCurrent.current.clouds} %",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: Colors.grey.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
-                      Text(
-                        "${widget.weatherDataCurrent.current.uvi}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: Colors.grey.withOpacity(0.5),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text(
+                                  'Uvi',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    letterSpacing: -0.2,
+                                    color: Color(0xFF253840),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(right: 0, top: 4),
+                                  child: Container(
+                                    height: 4,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffF1B440).withOpacity(0.2),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4.0)),
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          width: (widget.weatherDataCurrent
+                                                  .current.uvi!
+                                                  .toDouble()) *
+                                              5,
+                                          height: 4,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(colors: [
+                                              const Color(0xffF1B440)
+                                                  .withOpacity(0.1),
+                                              const Color(0xffF1B440),
+                                            ]),
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(4.0)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 6),
+                                  child: Text(
+                                    "${widget.weatherDataCurrent.current.uvi}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: Colors.grey.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       )
                     ],
                   ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        )
+        ),
       ],
     );
   }
