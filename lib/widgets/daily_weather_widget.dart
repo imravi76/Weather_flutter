@@ -380,7 +380,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                                       child: Image.asset("assets/icons/wind-direction.png", width: 20,),
                                     ),
                                     Text(
-                                      "${widget.weatherDataDaily.daily[index].windSpeed} Km/h",
+                                      " ${widget.weatherDataDaily.daily[index].windSpeed} Km/h",
                                       style: const TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),

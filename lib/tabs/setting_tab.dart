@@ -5,6 +5,8 @@ import '../main.dart';
 
 enum Units { metric, imperial }
 
+enum Theme { system, dark, light }
+
 class SettingTab extends StatefulWidget {
   const SettingTab({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class SettingTab extends StatefulWidget {
 
 class _SettingTabState extends State<SettingTab> {
   Units? _values;
+  Theme? _themeValues;
 
   @override
   void initState() {
@@ -44,62 +47,115 @@ class _SettingTabState extends State<SettingTab> {
         ),
       ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
-            Container(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: ExpansionTile(
-                title: const Text("Measurement Units"),
-                subtitle: Text(_values == Units.metric ? 'Metric' : 'Imperial'),
-                children: [
-                  ListTile(
-                      title: const Text("Metric (°C)"),
-                      leading: Radio<Units>(
-                        value: Units.metric,
-                        groupValue: _values,
-                        onChanged: (Units? value) {
-                          setState(() {
-                            _values = value;
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  child: ExpansionTile(
+                    title: const Text("Measurement Units"),
+                    subtitle: Text(_values == Units.metric ? 'Metric' : 'Imperial'),
+                    children: [
+                      ListTile(
+                          title: const Text("Metric (°C)"),
+                          leading: Radio<Units>(
+                            value: Units.metric,
+                            groupValue: _values,
+                            onChanged: (Units? value) {
+                              setState(() {
+                                _values = value;
 
-                            setValues(_values);
-                          });
-                        },
-                      )),
-                  ListTile(
-                    //toggleable: selected,
-                    title: const Text("Imperial (°F)"),
-                    leading: Radio<Units>(
-                        value: Units.imperial,
-                        groupValue: _values,
-                        onChanged: (Units? value) {
-                          setState(() {
-                            _values = value;
-                            setValues(_values);
-                          });
-                        }),
+                                setValues(_values);
+                              });
+                            },
+                          )),
+                      ListTile(
+                        //toggleable: selected,
+                        title: const Text("Imperial (°F)"),
+                        leading: Radio<Units>(
+                            value: Units.imperial,
+                            groupValue: _values,
+                            onChanged: (Units? value) {
+                              setState(() {
+                                _values = value;
+                                setValues(_values);
+                              });
+                            }),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ExpansionTile(
+                    title: const Text("Theme"),
+                    subtitle: Text('Choose app theme'),
+                    children: [
+                      ListTile(
+                          title: const Text("System default"),
+                          leading: Radio<Theme>(
+                            value: Theme.system,
+                            groupValue: _themeValues,
+                            onChanged: (Theme? value) {
+                              setState(() {
+                                _themeValues = value;
+
+                                //setValues(_themeValues);
+                              });
+                            },
+                          )),
+                      ListTile(
+                        //toggleable: selected,
+                        title: const Text("Dark"),
+                        leading: Radio<Theme>(
+                            value: Theme.dark,
+                            groupValue: _themeValues,
+                            onChanged: (Theme? value) {
+                              setState(() {
+                                _themeValues = value;
+                                //setValues(_themeValues);
+                              });
+                            }),
+                      ),
+                      ListTile(
+                        //toggleable: selected,
+                        title: const Text("Light"),
+                        leading: Radio<Theme>(
+                            value: Theme.light,
+                            groupValue: _themeValues,
+                            onChanged: (Theme? value) {
+                              setState(() {
+                                _themeValues = value;
+                                //setValues(_themeValues);
+                              });
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                  child: const ExpansionTile(
+                    title: Text("Credits"),
+                    subtitle: Text("Know the developer"),
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Developed By:"),
+                      Text("Ravi Singh"),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
             ),
-
-            Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-              child: const ExpansionTile(
-                title: Text("Credits"),
-                subtitle: Text("Know the developer"),
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Developed By:"),
-                  Text("Ravi Singh"),
-                  SizedBox(
-                    height: 20,
-                  ),
-
-                ],
-              ),
-            )
           ],
         ),
       ),

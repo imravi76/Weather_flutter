@@ -10,8 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LandingScreen(),
+    return MaterialApp(
+      theme: ThemeData.light(),
+      //darkTheme: ThemeData.dark(),
+      home: const LandingScreen(),
     );
   }
 }

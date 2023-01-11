@@ -180,7 +180,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                                     child: Image.asset("assets/icons/wind-direction.png", width: 20, height: 20,),
                                   ),
                                   Text(
-                                    "${widget.weatherDataCurrent.current.windSpeed} Km/h",
+                                    " ${widget.weatherDataCurrent.current.windSpeed} Km/h",
                                     style: const TextStyle(fontSize: 12),
                                     textAlign: TextAlign.center,
                                   ),
