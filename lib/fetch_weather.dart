@@ -25,13 +25,6 @@ class FetchWeatherAPI{
       return getDataFromAPI(lat, lon);
     }
 
-    /*Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-    File file = File('$appDocPath/1.json');*/
-
-    /*file.writeAsString(response.body);
-    print("Write Successful");*/
-
     return weatherData;
   }
 
@@ -53,9 +46,7 @@ class FetchWeatherAPI{
 
       //getDataFromAPI(lat, lon);
     }
-    //weatherData?.fromCache = true; //to indicate post is pulled from cache
     return weatherData!;
-
   }
 
   Future<WeatherData> getDataFromAPI(lat, lon) async{

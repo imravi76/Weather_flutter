@@ -58,6 +58,7 @@ class GlobalController extends GetxController {
       getLocation(prefs);
     } else{
       getIndex();
+      getAlreadyData();
       getRefresh();
     }
   }
@@ -125,11 +126,22 @@ class GlobalController extends GetxController {
     }
   }
 
-  getRefresh() async{
+  getAlreadyData() async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     
     return FetchWeatherAPI().processData(prefs.getDouble('lat'), prefs.getDouble('lon'))
+        .then((value) {
+      weatherData.value = value;
+      _isLoading.value = false;
+    });
+  }
+
+  getRefresh() async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return FetchWeatherAPI().getDataFromAPI(prefs.getDouble('lat'), prefs.getDouble('lon'))
         .then((value) {
       weatherData.value = value;
       _isLoading.value = false;
