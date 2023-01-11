@@ -396,7 +396,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                               children: [
                                 const Text("Rain", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
-                                  "${widget.weatherDataDaily.daily[index].pop} %",
+                                  "${(widget.weatherDataDaily.daily[index].pop!)*100} %",
                                   style: const TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center,
                                 ),

@@ -296,7 +296,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "${widget.weatherDataHourly.hourly[cardIndex.toInt()].pop} %",
+                            "${(widget.weatherDataHourly.hourly[cardIndex.toInt()].pop!)*100} %",
                             style: const TextStyle(fontSize: 12),
                             textAlign: TextAlign.center,
                           ),

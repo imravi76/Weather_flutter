@@ -21,7 +21,7 @@ class Hourly {
   double? windSpeed;
   int? windDeg;
   List<Weather>? weather;//done
-  int? pop;
+  double? pop;
 
   Hourly({
     this.dt,
@@ -52,7 +52,7 @@ class Hourly {
     weather: (json['weather'] as List<dynamic>?)
         ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
         .toList(),
-    pop: json['pop'] as int?,
+    pop: (json['pop'] as num?)?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
