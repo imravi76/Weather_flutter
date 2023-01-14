@@ -56,44 +56,6 @@ class _HeaderState extends State<Header> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        /*Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              alignment: Alignment.topLeft,
-              child: Text(
-                City,
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 28,
-                  letterSpacing: 1.2,
-                  color: Color(0xFF17262A),
-                ),
-              ),
-            ),
-            globalController.checkConnection() == true
-                ? Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    height: 5,
-                    width: 5,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.greenAccent),
-                  )
-                : Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.cloud_off),
-                        SizedBox(width: 5),
-                        Text("Offline Mode")
-                      ],
-                    ),
-                  )
-          ],
-        ),*/
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

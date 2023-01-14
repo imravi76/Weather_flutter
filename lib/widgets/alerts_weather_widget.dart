@@ -69,9 +69,9 @@ class _AlertsWeatherState extends State<AlertsWeather> {
           Expanded(
             child: PageView(
               scrollDirection: Axis.vertical,
-              onPageChanged: (num){
+              onPageChanged: (number){
                 setState(() {
-                  _selectedPage = num;
+                  _selectedPage = number;
                 });
               },
               children: [

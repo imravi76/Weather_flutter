@@ -76,7 +76,7 @@ class _SettingTabState extends State<SettingTab> {
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: ExpansionTile(
                         title: const Text("Theme"),
-                        subtitle: Text('Choose app theme'),
+                        subtitle: const Text('Choose app theme'),
                         children: [
                           ListTile(
                               title: const Text("System default"),
@@ -159,7 +159,7 @@ class _SettingTabState extends State<SettingTab> {
               ),
               statusChild: Container(
                 margin: const EdgeInsets.only(right: 20),
-                child: Icon(Icons.settings_suggest_outlined),
+                child: const Icon(Icons.settings_suggest_outlined),
               ),
             )
           ],

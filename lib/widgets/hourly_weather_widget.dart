@@ -20,7 +20,6 @@ class _HourlyWeatherState extends State<HourlyWeather> {
 
   var selectedItemPosition = -1;
   bool detailsStatus = false;
-  //bool firstHour = true;
 
   @override
   void initState() {
@@ -30,7 +29,6 @@ class _HourlyWeatherState extends State<HourlyWeather> {
     super.initState();
   }
 
-  //double height = 160;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -95,9 +93,9 @@ class _HourlyWeatherState extends State<HourlyWeather> {
     return Visibility(
       visible: detailsStatus,
         child: ExpansionTile(
-          title: Text(''),
+          title: const Text(''),
           initiallyExpanded: true,
-          trailing: SizedBox.shrink(),
+          trailing: const SizedBox.shrink(),
           children: [
             Container(
                 alignment: Alignment.topLeft,
