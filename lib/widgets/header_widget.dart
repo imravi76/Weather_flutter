@@ -16,7 +16,6 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
-  String City = "";
   String Country = "";
 
   final GlobalController globalController =
@@ -37,7 +36,6 @@ class _HeaderState extends State<Header> {
     List<Placemark> placemark = await placemarkFromCoordinates(lat!, lon!);
     Placemark place = placemark[0];
     setState(() {
-      City = place.locality!;
       Country = "${place.administrativeArea!}, ${place.country!}";
     });
   }
@@ -58,7 +56,7 @@ class _HeaderState extends State<Header> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        /*Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
@@ -95,12 +93,12 @@ class _HeaderState extends State<Header> {
                     ),
                   )
           ],
-        ),
+        ),*/
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 40),
               alignment: Alignment.topLeft,
               child: Text(
                 Country,
@@ -114,7 +112,7 @@ class _HeaderState extends State<Header> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(right: 20, bottom: 20),
+              margin: const EdgeInsets.only(right: 20, bottom: 20, top: 40),
               alignment: Alignment.topLeft,
               child: Text(
                 "Updated: ${getDay(widget.weatherDataCurrent.current.dt)}, ${getTime(widget.weatherDataCurrent.current.dt)}",

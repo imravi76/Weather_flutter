@@ -20,6 +20,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
 
   var selectedItemPosition = -1;
   bool detailsStatus = false;
+  //bool firstHour = true;
 
   @override
   void initState() {
@@ -65,10 +66,13 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                       if(selectedItemPosition == -1){
                         selectedItemPosition = index;
                         detailsStatus = true;
-                      }else{
+                      }else if(selectedItemPosition == index){
                         selectedItemPosition = -1;
                         detailsStatus = false;
-                        //cardIndex.value = 0;
+                        cardIndex.value = 0;
+                      } else{
+                        selectedItemPosition = index;
+                        detailsStatus = true;
                       }
                     });
                   },
@@ -80,7 +84,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                     weatherIcon: widget
                         .weatherDataHourly.hourly[index].weather![0].icon!,
                     description: widget.weatherDataHourly.hourly[index]
-                        .weather![0].description!,
+                        .weather![0].description!, firstHour: true,
                   ),
                 )));
           }),
@@ -359,6 +363,7 @@ class HourlyDetailsNew extends StatelessWidget {
   int timeStamp;
   String weatherIcon;
   String description;
+  bool firstHour;
 
   HourlyDetailsNew(
       {Key? key,
@@ -367,7 +372,8 @@ class HourlyDetailsNew extends StatelessWidget {
       required this.cardIndex,
       required this.timeStamp,
       required this.weatherIcon,
-      required this.description})
+      required this.description,
+      required this.firstHour})
       : super(key: key);
 
   String getTime(final timeStamp) {
@@ -391,135 +397,142 @@ class HourlyDetailsNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: 140,
-        child: Stack(children: [
-          Padding(
-              padding:
-                  const EdgeInsets.only(top: 32, left: 8, right: 8, bottom: 16),
-              child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: cardIndex == index
-                              ? const Color(0xff5C5EDD).withOpacity(0.6)
-                              : index%2 == 0 ? const Color(0xffFFB295).withOpacity(0.6) : const Color(0xffFF5287).withOpacity(0.6),
-                          offset: const Offset(1.1, 4.0),
-                          blurRadius: 8.0),
-                    ],
-                    gradient: LinearGradient(
-                      colors: cardIndex == index
-                          ? const <Color>[
-                              Color(0xff738AE6),
-                              Color(0xff5C5EDD),
-                            ]
-                          : index%2 == 0 ? const <Color>[
-                        Color(0xffFA7D82),
-                        Color(0xffFFB295),
-                      ] : const <Color>[
-                        Color(0xffFE95B6),
-                        Color(0xffFF5287),
+    
+    if(index == 0){
+      firstHour = false;
+    }
+    return Visibility(
+      visible: firstHour,
+      child: SizedBox(
+          width: 140,
+          child: Stack(children: [
+            Padding(
+                padding:
+                    const EdgeInsets.only(top: 32, left: 8, right: 8, bottom: 16),
+                child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: cardIndex == index
+                                ? const Color(0xff5C5EDD).withOpacity(0.6)
+                                : index%2 == 0 ? const Color(0xffFFB295).withOpacity(0.6) : const Color(0xffFF5287).withOpacity(0.6),
+                            offset: const Offset(1.1, 4.0),
+                            blurRadius: 8.0),
                       ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                      gradient: LinearGradient(
+                        colors: cardIndex == index
+                            ? const <Color>[
+                                Color(0xff738AE6),
+                                Color(0xff5C5EDD),
+                              ]
+                            : index%2 == 0 ? const <Color>[
+                          Color(0xffFA7D82),
+                          Color(0xffFFB295),
+                        ] : const <Color>[
+                          Color(0xffFE95B6),
+                          Color(0xffFF5287),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(8.0),
+                        bottomLeft: Radius.circular(8.0),
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(54.0),
+                      ),
                     ),
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(8.0),
-                      bottomLeft: Radius.circular(8.0),
-                      topLeft: Radius.circular(8.0),
-                      topRight: Radius.circular(54.0),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 54, left: 16, right: 16, bottom: 8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "$temp °C",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            letterSpacing: 0.2,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  getDescription(description),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    letterSpacing: 0.2,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 54, left: 16, right: 16, bottom: 8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "$temp °C",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              letterSpacing: 0.2,
+                              color: Colors.white,
                             ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              getTime(timeStamp),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 22,
-                                letterSpacing: 0.2,
-                                color: Colors.white,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8, bottom: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    getDescription(description),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      letterSpacing: 0.2,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 4, bottom: 3),
-                              child: Text(
-                                getTimes(timeStamp),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                getTime(timeStamp),
+                                textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 10,
+                                  fontSize: 22,
                                   letterSpacing: 0.2,
                                   color: Colors.white,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ))),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              width: 84,
-              height: 84,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFAFAFA).withOpacity(0.2),
-                shape: BoxShape.circle,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 4, bottom: 3),
+                                child: Text(
+                                  getTimes(timeStamp),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 10,
+                                    letterSpacing: 0.2,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ))),
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: 84,
+                height: 84,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFAFAFA).withOpacity(0.2),
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            top: 15,
-            left: 10,
-            child: SizedBox(
-              width: 60,
-              height: 60,
-              child: Image.asset("assets/weather/$weatherIcon.png"),
-            ),
-          )
-        ]));
+            Positioned(
+              top: 15,
+              left: 10,
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: Image.asset("assets/weather/$weatherIcon.png"),
+              ),
+            )
+          ])),
+    );
   }
 }
