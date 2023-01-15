@@ -363,6 +363,9 @@ class HourlyDetailsNew extends StatelessWidget {
   String description;
   bool firstHour;
 
+  List colorBg = const [Color(0xffFF5287), Color(0xffFFB295), Color(0xff5C5EDD)];
+  List colorFg = const [Color(0xffFE95B6), Color(0xffFA7D82), Color(0xff738AE6)];
+
   HourlyDetailsNew(
       {Key? key,
       required this.temp,
@@ -412,23 +415,20 @@ class HourlyDetailsNew extends StatelessWidget {
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                             color: cardIndex == index
-                                ? const Color(0xff5C5EDD).withOpacity(0.6)
-                                : index%2 == 0 ? const Color(0xffFFB295).withOpacity(0.6) : const Color(0xffFF5287).withOpacity(0.6),
+                                ? const Color(0xff1E1466).withOpacity(0.6)
+                                : colorBg[index % colorBg.length],
                             offset: const Offset(1.1, 4.0),
                             blurRadius: 8.0),
                       ],
                       gradient: LinearGradient(
                         colors: cardIndex == index
                             ? const <Color>[
-                                Color(0xff738AE6),
-                                Color(0xff5C5EDD),
+                                Color(0xff6F72CA),
+                                Color(0xff1E1466),
                               ]
-                            : index%2 == 0 ? const <Color>[
-                          Color(0xffFA7D82),
-                          Color(0xffFFB295),
-                        ] : const <Color>[
-                          Color(0xffFE95B6),
-                          Color(0xffFF5287),
+                            : <Color>[
+                          colorFg[index % colorFg.length],
+                          colorBg[index % colorBg.length],
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
