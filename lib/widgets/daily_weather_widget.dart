@@ -54,6 +54,10 @@ class _DailyWeatherState extends State<DailyWeather> {
       tempUnit = '°K';
       windUnit = 'm/s';
     }
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -209,7 +213,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                               children: [
                                 const Text("Moonrise", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
-                                  getTime(widget.weatherDataDaily.daily[index].moonset),
+                                  getTime(widget.weatherDataDaily.daily[index].moonrise),
                                   style: const TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center,
                                 ),
@@ -222,7 +226,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                               children: [
                                 const Text("Moonset", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
-                                  getTime(widget.weatherDataDaily.daily[index].moonrise),
+                                  getTime(widget.weatherDataDaily.daily[index].moonset),
                                   style: const TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center,
                                 ),
@@ -371,7 +375,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                               color: CustomColors.cardColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Image.asset("assets/icons/rain.png"),
+                            child: Image.asset("assets/icons/pop.png"),
                           ),
                         ],
                       ),
@@ -420,7 +424,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                             width: 60,
                             child: Column(
                               children: [
-                                const Text("Rain", style: TextStyle(fontWeight: FontWeight.bold),),
+                                const Text("POP", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
                                   "${(widget.weatherDataDaily.daily[index].pop!)*100} %",
                                   style: const TextStyle(fontSize: 12),

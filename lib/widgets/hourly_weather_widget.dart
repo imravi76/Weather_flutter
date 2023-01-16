@@ -48,6 +48,10 @@ class _HourlyWeatherState extends State<HourlyWeather> {
       tempUnit = '°K';
       windUnit = 'm/s';
     }
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -268,7 +272,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                             color: CustomColors.cardColor,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Image.asset("assets/icons/rain.png"),
+                          child: Image.asset("assets/icons/pop.png"),
                         ),
                         Container(
                           width: 60,

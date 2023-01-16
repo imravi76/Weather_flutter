@@ -43,6 +43,10 @@ class _HeaderState extends State<Header> {
       tempUnit = '°K';
     }
 
+    setState(() {
+
+    });
+
     List<Placemark> placemark = await placemarkFromCoordinates(lat!, lon!);
     Placemark place = placemark[0];
     setState(() {
