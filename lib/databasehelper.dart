@@ -45,21 +45,6 @@ class DatabaseHelper{
     }
   }
 
-  /*Future<List<Cities>> getCities() async{
-    final db = await openDb();
-    var res = await db?.query("Cities");
-    List<Cities> citiesMap = res!.map((e) => Cities.fromMap(e)).toList();
-    return citiesMap;
-  }
-
-  Future<List<String>> selectItems() async {
-    final db = await openDb();
-    var usersData = await db?.query("Cities");
-    return usersData!.map((Map<String, dynamic> row) {
-      return row["name"] as String;
-    }).toList();
-  }*/
-
   Future<List<AutoCities>> selectedCities() async{
     final db = await openDb();
     var cityData = await db?.rawQuery("select c_id, lat, lon, country, name || ', ' || country as name from Cities");
@@ -70,7 +55,7 @@ class DatabaseHelper{
   Future<void> insertCities(Cities cities) async{
     final db = await openDb();
     await db?.insert('choices', cities.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
-    //db?.close();
+    db?.close();
   }
 
   Future<List<Cities>> getCities() async{

@@ -311,7 +311,7 @@ class _CityTabState extends State<CityTab> {
               ),
               statusChild: Container(
                 margin: const EdgeInsets.only(right: 20),
-                child: Icon(Icons.share_location),
+                child: const Icon(Icons.share_location),
               ),
             )
           ],

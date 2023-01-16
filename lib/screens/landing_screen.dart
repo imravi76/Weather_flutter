@@ -38,20 +38,19 @@ class _LandingScreenState extends State<LandingScreen> {
         children: [
           Expanded(
               child: PageView(
-            //physics: NeverScrollableScrollPhysics(),
             controller: _tabsPageController,
                 children: const [HomeTab(), CityTab(), SettingTab()],
 
-            onPageChanged: (num) {
+            onPageChanged: (number) {
               setState(() {
-                _selectedTab = num;
+                _selectedTab = number;
               });
             },
           )),
           BottomTabs(
             selectedTab: _selectedTab,
-            tabPressed: (num) {
-              _tabsPageController.animateToPage(num,
+            tabPressed: (number) {
+              _tabsPageController.animateToPage(number,
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOutCubic);
             },

@@ -20,7 +20,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
   String City = "";
   String Country = "";
 
@@ -59,16 +58,18 @@ class _HomeTabState extends State<HomeTab> {
                   child: CircularProgressIndicator(),
                 )
               : Stack(
-                children: [
-                  Center(
+                  children: [
+                    Center(
                       child: ListView(
                         scrollDirection: Axis.vertical,
                         children: [
                           const SizedBox(
                             height: 20,
                           ),
-                          Header(weatherDataCurrent:
-                          globalController.getData().getCurrentWeather(),),
+                          Header(
+                            weatherDataCurrent:
+                                globalController.getData().getCurrentWeather(),
+                          ),
                           CurrentWeather(
                             weatherDataCurrent:
                                 globalController.getData().getCurrentWeather(),
@@ -98,40 +99,43 @@ class _HomeTabState extends State<HomeTab> {
                         ],
                       ),
                     ),
-                  CustomActionBar(cityChild: Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    //alignment: Alignment.topLeft,
-                    child: Text(
-                      City,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 28,
-                        letterSpacing: 1.2,
-                        color: Color(0xFF17262A),
+                    CustomActionBar(
+                      cityChild: Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        //alignment: Alignment.topLeft,
+                        child: Text(
+                          City,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 28,
+                            letterSpacing: 1.2,
+                            color: Color(0xFF17262A),
+                          ),
+                        ),
                       ),
-                    ),
-                  ), statusChild: globalController.checkConnection() == true
-                      ? Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    height: 5,
-                    width: 5,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.greenAccent),
-                  )
-                      : Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.cloud_off),
-                        SizedBox(width: 5),
-                        Text("Offline Mode")
-                      ],
-                    ),
-                  ),)
-                ],
-              )),
+                      statusChild: globalController.checkConnection() == true
+                          ? Container(
+                              margin: const EdgeInsets.only(right: 20),
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.greenAccent),
+                            )
+                          : Container(
+                              margin: const EdgeInsets.only(right: 20),
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.cloud_off),
+                                  SizedBox(width: 5),
+                                  Text("Offline Mode")
+                                ],
+                              ),
+                            ),
+                    )
+                  ],
+                )),
         ),
       ),
     );

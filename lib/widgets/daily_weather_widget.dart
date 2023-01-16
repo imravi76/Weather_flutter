@@ -104,8 +104,8 @@ class _DailyWeatherState extends State<DailyWeather> {
                 onExpansionChanged: (value){
                   if(value){
                     setState(() {
-                      containerHeight = 830;
-                      listHeight = 770;
+                      containerHeight = 880;
+                      listHeight = 820;
                     });
                   } else{
                     setState(() {
@@ -249,16 +249,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                               color: CustomColors.cardColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Image.asset("assets/icons/moon-phase.png",
-                            ),
-                          ),
-                          Container(
-                            width: 60,
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: CustomColors.cardColor,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
                             child: Image.asset("assets/icons/humidity.png"),
                           ),
                           Container(
@@ -279,7 +269,15 @@ class _DailyWeatherState extends State<DailyWeather> {
                             ),
                             child: Image.asset("assets/icons/clouds.png"),
                           ),
-
+                          Container(
+                            width: 60,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: CustomColors.cardColor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Image.asset("assets/icons/dew-point.png"),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -288,19 +286,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SizedBox(
-                            width: 60,
-                            child: Column(
-                              children: [
-                                const Text("Moon", style: TextStyle(fontWeight: FontWeight.bold),),
-                                Text(
-                                  "${widget.weatherDataDaily.daily[index].moonPhase}",
-                                  style: const TextStyle(fontSize: 12),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
                           SizedBox(
                             width: 60,
                             child: Column(
@@ -340,7 +325,19 @@ class _DailyWeatherState extends State<DailyWeather> {
                               ],
                             ),
                           ),
-
+                          SizedBox(
+                            width: 65,
+                            child: Column(
+                              children: [
+                                const Text("Dew Point", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${widget.weatherDataDaily.daily[index].dewPoint}$tempUnit",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -349,15 +346,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            width: 60,
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: CustomColors.cardColor,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Image.asset("assets/icons/dew-point.png"),
-                          ),
                           Container(
                             width: 60,
                             padding: const EdgeInsets.all(16),
@@ -377,6 +365,24 @@ class _DailyWeatherState extends State<DailyWeather> {
                             ),
                             child: Image.asset("assets/icons/pop.png"),
                           ),
+                          if(widget.weatherDataDaily.daily[index].rain != null) Container(
+                            width: 60,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: CustomColors.cardColor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Image.asset("assets/icons/rain.png"),
+                          ),
+                          if(widget.weatherDataDaily.daily[index].snow != null) Container(
+                            width: 60,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: CustomColors.cardColor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Image.asset("assets/icons/snow.png"),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -385,19 +391,6 @@ class _DailyWeatherState extends State<DailyWeather> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SizedBox(
-                            width: 65,
-                            child: Column(
-                              children: [
-                                const Text("Dew Point", style: TextStyle(fontWeight: FontWeight.bold),),
-                                Text(
-                                  "${widget.weatherDataDaily.daily[index].dewPoint}$tempUnit",
-                                  style: const TextStyle(fontSize: 12),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
                           SizedBox(
                             width: 80,
                             child: Column(
@@ -427,6 +420,32 @@ class _DailyWeatherState extends State<DailyWeather> {
                                 const Text("POP", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
                                   "${(widget.weatherDataDaily.daily[index].pop!)*100} %",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          if(widget.weatherDataDaily.daily[index].rain != null) SizedBox(
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Rain", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${(widget.weatherDataDaily.daily[index].rain)} mm",
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          if(widget.weatherDataDaily.daily[index].snow != null) SizedBox(
+                            width: 60,
+                            child: Column(
+                              children: [
+                                const Text("Snow", style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${(widget.weatherDataDaily.daily[index].snow)} mm",
                                   style: const TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center,
                                 ),

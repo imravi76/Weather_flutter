@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather/databasehelper.dart';
 import 'package:weather/model/cities.dart';
 
-import '../main.dart';
-
 class AddCity extends StatefulWidget {
   const AddCity({Key? key}) : super(key: key);
 
@@ -33,7 +31,7 @@ class _AddCityState extends State<AddCity> {
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.only(bottom: 20),
-                    child: Text(
+                    child: const Text(
                       "Add your City",
                       style: TextStyle(
                         fontSize: 20,
@@ -43,7 +41,6 @@ class _AddCityState extends State<AddCity> {
 
                   Form(
                     key: _key,
-                    //autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
                       children: [
 

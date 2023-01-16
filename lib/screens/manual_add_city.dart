@@ -30,7 +30,7 @@ class _ManualAddCityState extends State<ManualAddCity> {
               List<Location> locations = await locationFromAddress(cityController.text);
               print(locations);
             },
-                child: Text("Submit"))
+                child: const Text("Submit"))
           ],
         ),
       ),

@@ -1,3 +1,6 @@
+import 'package:weather/model/rain.dart';
+import 'package:weather/model/snow.dart';
+
 import 'weather.dart';
 
 class WeatherDataCurrent{
@@ -9,20 +12,22 @@ class WeatherDataCurrent{
 }
 
 class Current {
-  int? dt;//done
-  int? sunrise;//done
-  int? sunset;//done
-  int? temp;//done
-  double? feelsLike;//done
-  int? humidity;//done
-  int? pressure;//done
-  double? dewPoint;//done
-  int? windDeg;//done
-  int? clouds;//done
-  int? visibility;//done
-  double? windSpeed;//done
+  int? dt;
+  int? sunrise;
+  int? sunset;
+  int? temp;
+  double? feelsLike;
+  int? humidity;
+  int? pressure;
+  double? dewPoint;
+  int? windDeg;
+  int? clouds;
+  int? visibility;
+  double? windSpeed;
   double? uvi;
-  List<Weather>? weather;//done
+  List<Weather>? weather;
+  List<Rain>? rain;
+  List<Snow>? snow;
 
   Current({
     this.dt,
@@ -38,7 +43,9 @@ class Current {
     this.pressure,
     this.dewPoint,
     this.windDeg,
-    this.uvi
+    this.uvi,
+    this.rain,
+    this.snow
   });
 
   factory Current.fromJson(Map<String, dynamic> json) => Current(
@@ -58,6 +65,12 @@ class Current {
     weather: (json['weather'] as List<dynamic>?)
         ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
         .toList(),
+    rain: (json['rain'] as List<dynamic>?)
+      ?.map((e) => Rain.fromJson(e as Map<String, dynamic>))
+      .toList(),
+    snow: (json['snow'] as List<dynamic>?)
+        ?.map((e) => Snow.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -75,5 +88,7 @@ class Current {
     'wind_deg': windDeg,
     'uvi':uvi,
     'weather': weather?.map((e) => e.toJson()).toList(),
+    'rain': rain?.map((e) => e.toJson()).toList(),
+    'snow': snow?.map((e) => e.toJson()).toList()
   };
 }

@@ -1,3 +1,5 @@
+import 'package:weather/model/rain.dart';
+import 'package:weather/model/snow.dart';
 import 'package:weather/model/weather.dart';
 
 class WeatherDataHourly{
@@ -10,8 +12,8 @@ class WeatherDataHourly{
 }
 
 class Hourly {
-  int? dt;//done
-  int? temp;//done
+  int? dt;
+  int? temp;
   double? feelsLike;
   int? pressure;
   int? humidity;
@@ -20,8 +22,10 @@ class Hourly {
   int? visibility;
   double? windSpeed;
   int? windDeg;
-  List<Weather>? weather;//done
+  List<Weather>? weather;
   double? pop;
+  List<Rain>? rain;
+  List<Snow>? snow;
 
   Hourly({
     this.dt,
@@ -36,6 +40,8 @@ class Hourly {
     this.windDeg,
     this.weather,
     this.pop,
+    this.rain,
+    this.snow
   });
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
@@ -53,6 +59,12 @@ class Hourly {
         ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
         .toList(),
     pop: (json['pop'] as num?)?.toDouble(),
+    rain: (json['rain'] as List<dynamic>?)
+        ?.map((e) => Rain.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    snow: (json['snow'] as List<dynamic>?)
+        ?.map((e) => Snow.fromJson(e as Map<String, dynamic>))
+        .toList()
   );
 
   Map<String, dynamic> toJson() => {
@@ -68,5 +80,7 @@ class Hourly {
     'wind_deg': windDeg,
     'weather': weather?.map((e) => e.toJson()).toList(),
     'pop': pop,
+    'rain': rain?.map((e) => e.toJson()).toList(),
+    'snow': snow?.map((e) => e.toJson()).toList(),
   };
 }

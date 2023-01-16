@@ -1,5 +1,3 @@
-
-
 class WeatherDataAlert{
   List<Alert> alert;
   WeatherDataAlert({required this.alert});

@@ -222,6 +222,76 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                         ),
                       ],
                     ),
+                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    const SizedBox(height: 15,),
+                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                      if(widget.weatherDataCurrent.current.rain?[0].ih != null)
+                        Container(
+                          width: 60,
+                          padding: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.only(left: 35),
+                          decoration: BoxDecoration(
+                            color: CustomColors.cardColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Image.asset("assets/icons/rain.png"),
+                        ),
+                        if(widget.weatherDataCurrent.current.snow?[0].ih != null)
+                        Container(
+                          width: 60,
+                          padding: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.only(left: 70),
+                          decoration: BoxDecoration(
+                            color: CustomColors.cardColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Image.asset("assets/icons/snow.png"),
+                        ),
+                      ],
+                    ),
+                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if(widget.weatherDataCurrent.current.rain?[0].ih != null)
+                        Container(
+                          margin: const EdgeInsets.only(left: 32),
+                          width: 65,
+                          child: Column(
+                            children: [
+                              const Text("Rain", style: TextStyle(fontWeight: FontWeight.bold),),
+                              Text(
+                                "${widget.weatherDataCurrent.current.rain?[0].ih} mm",
+                                style: const TextStyle(fontSize: 12),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        if(widget.weatherDataCurrent.current.snow?[0].ih != null)
+                        Container(
+                          margin: const EdgeInsets.only(left: 65),
+                          width: 65,
+                          child: Column(
+                            children: [
+                              const Text("Snow", style: TextStyle(fontWeight: FontWeight.bold),),
+                              Text(
+                                "${widget.weatherDataCurrent.current.snow?[0].ih} mm",
+                                style: const TextStyle(fontSize: 12),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 )
             )

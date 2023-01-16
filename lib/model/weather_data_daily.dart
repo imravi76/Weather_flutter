@@ -11,21 +11,22 @@ class WeatherDataDaily{
 }
 
 class Daily {
-  int? dt;//done
-  int? sunrise;//done
-  int? sunset;//done
-  int? moonrise;//done
-  int? moonset;//done
-  double? moonPhase;//done
-  Temp? temp;//done
-  int? pressure;//done
-  int? humidity;//done
-  double? dewPoint;//done
-  double? windSpeed;//done
-  int? windDeg;//done
-  List<Weather>? weather;//done
-  int? clouds;//done
-  double? pop;//done
+  int? dt;
+  int? sunrise;
+  int? sunset;
+  int? moonrise;
+  int? moonset;
+  Temp? temp;
+  int? pressure;
+  int? humidity;
+  double? dewPoint;
+  double? windSpeed;
+  int? windDeg;
+  List<Weather>? weather;
+  int? clouds;
+  double? pop;
+  double? rain;
+  double? snow;
 
   Daily({
     this.dt,
@@ -33,7 +34,6 @@ class Daily {
     this.sunset,
     this.moonrise,
     this.moonset,
-    this.moonPhase,
     this.temp,
     this.pressure,
     this.humidity,
@@ -43,6 +43,8 @@ class Daily {
     this.weather,
     this.clouds,
     this.pop,
+    this.rain,
+    this.snow,
   });
 
   factory Daily.fromJson(Map<String, dynamic> json) => Daily(
@@ -51,7 +53,6 @@ class Daily {
     sunset: json['sunset'] as int?,
     moonrise: json['moonrise'] as int?,
     moonset: json['moonset'] as int?,
-    moonPhase: (json['moon_phase'] as num?)?.toDouble(),
     temp: json['temp'] == null
         ? null
         : Temp.fromJson(json['temp'] as Map<String, dynamic>),
@@ -65,6 +66,8 @@ class Daily {
         .toList(),
     clouds: json['clouds'] as int?,
     pop: (json['pop'] as num?)?.toDouble(),
+    rain: (json['rain'] as num?)?.toDouble(),
+    snow: (json['snow'] as num?)?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -73,7 +76,6 @@ class Daily {
     'sunset': sunset,
     'moonrise': moonrise,
     'moonset': moonset,
-    'moon_phase': moonPhase,
     'temp': temp?.toJson(),
     'pressure': pressure,
     'humidity': humidity,
@@ -83,5 +85,7 @@ class Daily {
     'weather': weather?.map((e) => e.toJson()).toList(),
     'clouds': clouds,
     'pop': pop,
+    'rain':rain,
+    'snow':snow,
   };
 }
