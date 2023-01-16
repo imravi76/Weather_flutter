@@ -17,6 +17,7 @@ class Header extends StatefulWidget {
 
 class _HeaderState extends State<Header> {
   String Country = "";
+  String tempUnit = "";
 
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
@@ -32,6 +33,15 @@ class _HeaderState extends State<Header> {
 
     double? lat = prefs.getDouble('lat');
     double? lon = prefs.getDouble('lon');
+    String? units = prefs.getString('units');
+
+    if(units == 'metric'){
+      tempUnit = '°C';
+    } else if(units == 'imperial'){
+      tempUnit = '°F';
+    }else{
+      tempUnit = '°K';
+    }
 
     List<Placemark> placemark = await placemarkFromCoordinates(lat!, lon!);
     Placemark place = placemark[0];
@@ -182,7 +192,7 @@ class _HeaderState extends State<Header> {
                                               padding: const EdgeInsets.only(
                                                   left: 4, bottom: 3),
                                               child: Text(
-                                                '°C',
+                                                tempUnit,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w600,
@@ -266,7 +276,7 @@ class _HeaderState extends State<Header> {
                                               padding: const EdgeInsets.only(
                                                   left: 8, bottom: 3),
                                               child: Text(
-                                                '°C',
+                                                tempUnit,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w600,

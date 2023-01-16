@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/weather_data_current.dart';
 
 import '../custom_colors.dart';
@@ -15,9 +16,34 @@ class CurrentWeather extends StatefulWidget {
 }
 
 class _CurrentWeatherState extends State<CurrentWeather> {
+
+  String dewUnit = '';
+  String windUnit = '';
+
+  @override
+  void initState(){
+    super.initState();
+    getUnits();
+  }
+
+  void getUnits() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? units = prefs.getString('units');
+
+    if(units == 'metric'){
+      dewUnit = '°C';
+      windUnit = 'm/s';
+    }else if(units == 'imperial'){
+      dewUnit = '°F';
+      windUnit = 'mi/h';
+    } else{
+      dewUnit = '°K';
+      windUnit = 'm/s';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         ExpansionTile(title: const Text("Details"),
@@ -153,7 +179,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                             children: [
                               const Text("Dew Point", style: TextStyle(fontWeight: FontWeight.bold),),
                               Text(
-                                "${widget.weatherDataCurrent.current.dewPoint} °C Td",
+                                "${widget.weatherDataCurrent.current.dewPoint}$dewUnit",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),
@@ -172,7 +198,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                                       child: Image.asset("assets/icons/wind-direction.png", width: 20, height: 20,),
                                     ),
                                     Text(
-                                      " ${widget.weatherDataCurrent.current.windSpeed} Km/h",
+                                      " ${widget.weatherDataCurrent.current.windSpeed}$windUnit",
                                       style: const TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),

@@ -6,8 +6,6 @@ import '../widgets/custom_action_bar.dart';
 
 enum Units { metric, imperial }
 
-enum Theme { system, dark, light }
-
 class SettingTab extends StatefulWidget {
   const SettingTab({Key? key}) : super(key: key);
 
@@ -17,7 +15,6 @@ class SettingTab extends StatefulWidget {
 
 class _SettingTabState extends State<SettingTab> {
   Units? _values;
-  Theme? _themeValues;
 
   @override
   void initState() {
@@ -37,7 +34,7 @@ class _SettingTabState extends State<SettingTab> {
                 Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+                      padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
                       child: ExpansionTile(
                         title: const Text("Measurement Units"),
                         subtitle: Text(_values == Units.metric ? 'Metric' : 'Imperial'),
@@ -65,55 +62,6 @@ class _SettingTabState extends State<SettingTab> {
                                   setState(() {
                                     _values = value;
                                     setValues(_values);
-                                  });
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    Container(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: ExpansionTile(
-                        title: const Text("Theme"),
-                        subtitle: const Text('Choose app theme'),
-                        children: [
-                          ListTile(
-                              title: const Text("System default"),
-                              leading: Radio<Theme>(
-                                value: Theme.system,
-                                groupValue: _themeValues,
-                                onChanged: (Theme? value) {
-                                  setState(() {
-                                    _themeValues = value;
-
-                                    //setValues(_themeValues);
-                                  });
-                                },
-                              )),
-                          ListTile(
-                            //toggleable: selected,
-                            title: const Text("Dark"),
-                            leading: Radio<Theme>(
-                                value: Theme.dark,
-                                groupValue: _themeValues,
-                                onChanged: (Theme? value) {
-                                  setState(() {
-                                    _themeValues = value;
-                                    //setValues(_themeValues);
-                                  });
-                                }),
-                          ),
-                          ListTile(
-                            //toggleable: selected,
-                            title: const Text("Light"),
-                            leading: Radio<Theme>(
-                                value: Theme.light,
-                                groupValue: _themeValues,
-                                onChanged: (Theme? value) {
-                                  setState(() {
-                                    _themeValues = value;
-                                    //setValues(_themeValues);
                                   });
                                 }),
                           ),

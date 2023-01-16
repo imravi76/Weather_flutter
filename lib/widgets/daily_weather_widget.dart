@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../custom_colors.dart';
 import '../model/weather_data_daily.dart';
@@ -29,6 +30,31 @@ class _DailyWeatherState extends State<DailyWeather> {
 
   double containerHeight = 400;
   double listHeight = 300;
+
+  String tempUnit = '';
+  String windUnit = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getUnit();
+  }
+
+  void getUnit() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? units = prefs.getString('units');
+
+    if(units == 'metric'){
+      tempUnit = '°C';
+      windUnit = 'm/s';
+    }else if(units == 'imperial'){
+      tempUnit = '°F';
+      windUnit = 'mi/h';
+    }else{
+      tempUnit = '°K';
+      windUnit = 'm/s';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +125,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                   width: 30,
                   child: Image.asset("assets/weather/${widget.weatherDataDaily.daily[index].weather![0].icon}.png"),
                 ),
-                trailing: Text("${widget.weatherDataDaily.daily[index].temp!.max}°C/${widget.weatherDataDaily.daily[index].temp!.min}°C"),
+                trailing: Text("${widget.weatherDataDaily.daily[index].temp!.max}$tempUnit/${widget.weatherDataDaily.daily[index].temp!.min}$tempUnit"),
                 children: [
                   Column(
                     children: [
@@ -361,7 +387,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                               children: [
                                 const Text("Dew Point", style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text(
-                                  "${widget.weatherDataDaily.daily[index].dewPoint}°C Td",
+                                  "${widget.weatherDataDaily.daily[index].dewPoint}$tempUnit",
                                   style: const TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center,
                                 ),
@@ -380,7 +406,7 @@ class _DailyWeatherState extends State<DailyWeather> {
                                       child: Image.asset("assets/icons/wind-direction.png", width: 20,),
                                     ),
                                     Text(
-                                      " ${widget.weatherDataDaily.daily[index].windSpeed} Km/h",
+                                      " ${widget.weatherDataDaily.daily[index].windSpeed}$windUnit",
                                       style: const TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),

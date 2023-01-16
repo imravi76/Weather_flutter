@@ -96,14 +96,14 @@ class _AlertsWeatherState extends State<AlertsWeather> {
                         alignment: Alignment.topLeft,
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
-                            "Start: ${getDay(widget.weatherDataAlert.alert[i].start)}"
+                            "Start: ${getDay(widget.weatherDataAlert.alert[i].start)}, ${getTime(widget.weatherDataAlert.alert[i].start)}"
                         ),
                       ),
                       Container(
                         alignment: Alignment.topLeft,
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
-                            "End: ${getDay(widget.weatherDataAlert.alert[i].end)}"
+                            "End: ${getDay(widget.weatherDataAlert.alert[i].end)}, ${getTime(widget.weatherDataAlert.alert[i].start)}"
                         ),
                       ),
                       Container(
@@ -148,6 +148,12 @@ class _AlertsWeatherState extends State<AlertsWeather> {
   String getDay(final timeStamp){
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
     String x = DateFormat('EEEE').format(time);
+    return x;
+  }
+
+  String getTime(final timeStamp){
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
+    String x = DateFormat('jm').format(time);
     return x;
   }
 }

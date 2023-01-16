@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controller/global_controller.dart';
 import 'package:weather/custom_colors.dart';
 import '../model/weather_data_hourly.dart';
@@ -21,12 +22,32 @@ class _HourlyWeatherState extends State<HourlyWeather> {
   var selectedItemPosition = -1;
   bool detailsStatus = false;
 
+  String tempUnit = '';
+  String windUnit = '';
+
   @override
   void initState() {
     if(selectedItemPosition == -1){
       detailsStatus = false;
     }
     super.initState();
+    getUnit();
+  }
+
+  void getUnit() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? units = prefs.getString('units');
+
+    if(units == 'metric'){
+      tempUnit = '°C';
+      windUnit = 'm/s';
+    }else if(units == 'imperial'){
+      tempUnit = '°F';
+      windUnit = 'mi/h';
+    }else{
+      tempUnit = '°K';
+      windUnit = 'm/s';
+    }
   }
 
   @override
@@ -83,6 +104,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                         .weatherDataHourly.hourly[index].weather![0].icon!,
                     description: widget.weatherDataHourly.hourly[index]
                         .weather![0].description!, firstHour: true,
+                    tempUnit: tempUnit,
                   ),
                 )));
           }),
@@ -158,7 +180,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "${widget.weatherDataHourly.hourly[cardIndex.toInt()].feelsLike}°C",
+                                "${widget.weatherDataHourly.hourly[cardIndex.toInt()].feelsLike}$tempUnit",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),
@@ -274,7 +296,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "${widget.weatherDataHourly.hourly[cardIndex.toInt()].dewPoint} °C Td",
+                                "${widget.weatherDataHourly.hourly[cardIndex.toInt()].dewPoint}$tempUnit",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),
@@ -304,7 +326,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                                       ),
                                     ),
                                     Text(
-                                      " ${widget.weatherDataHourly.hourly[cardIndex.toInt()].windSpeed} Km/h",
+                                      " ${widget.weatherDataHourly.hourly[cardIndex.toInt()].windSpeed}$windUnit",
                                       style: const TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),
@@ -362,6 +384,7 @@ class HourlyDetailsNew extends StatelessWidget {
   String weatherIcon;
   String description;
   bool firstHour;
+  String tempUnit;
 
   List colorBg = const [Color(0xffFF5287), Color(0xffFFB295), Color(0xff5C5EDD)];
   List colorFg = const [Color(0xffFE95B6), Color(0xffFA7D82), Color(0xff738AE6)];
@@ -374,7 +397,7 @@ class HourlyDetailsNew extends StatelessWidget {
       required this.timeStamp,
       required this.weatherIcon,
       required this.description,
-      required this.firstHour})
+      required this.firstHour, required this.tempUnit})
       : super(key: key);
 
   String getTime(final timeStamp) {
@@ -448,7 +471,7 @@ class HourlyDetailsNew extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "$temp °C",
+                            "$temp$tempUnit",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,

@@ -50,7 +50,7 @@ class _CityTabState extends State<CityTab> {
               children: [
                 Form(
                   child: Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 66),
+                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 70),
                       child: RawAutocomplete<AutoCities>(
                           textEditingController: controller,
                           focusNode: focusNode,
@@ -311,7 +311,7 @@ class _CityTabState extends State<CityTab> {
               ),
               statusChild: Container(
                 margin: const EdgeInsets.only(right: 20),
-                child: Image.asset("assets/icons/location.png"),
+                child: Icon(Icons.share_location),
               ),
             )
           ],
