@@ -48,10 +48,10 @@ Before you begin, ensure you have met the following requirements:
 
 2. **Configure API Key**
 
-   Open `lib/constants.dart` and add your API key:
+   Open `lib/fetch_weather.dart` and add your API key:
 
    ```dart
-   const String apiKey = 'YOUR_API_KEY_HERE';
+   String apiKey = 'YOUR_API_KEY_HERE';
    ```
 
 ### Running the App
