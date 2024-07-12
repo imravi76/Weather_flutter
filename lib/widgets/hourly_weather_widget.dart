@@ -372,9 +372,9 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                         ),
                       ],
                     ),
-                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null)
+                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].snow != null)
                       const SizedBox(height: 15,),
-                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null)
+                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].snow != null)
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -402,11 +402,11 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                           ),
                         ],
                       ),
-                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null)
+                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].snow != null)
                     const SizedBox(
                       height: 10,
                     ),
-                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null)
+                    if(widget.weatherDataHourly.hourly[cardIndex.toInt()].rain != null || widget.weatherDataHourly.hourly[cardIndex.toInt()].snow != null)
                     Row(
                       //mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -421,7 +421,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "${widget.weatherDataHourly.hourly[cardIndex.toInt()].rain?[0].ih} mm",
+                                "${widget.weatherDataHourly.hourly[cardIndex.toInt()].rain?.d1h} mm",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),
@@ -439,7 +439,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "${(widget.weatherDataHourly.hourly[cardIndex.toInt()].snow?[0].ih)} mm",
+                                "${(widget.weatherDataHourly.hourly[cardIndex.toInt()].snow?.d1h)} mm",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),

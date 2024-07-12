@@ -40,6 +40,10 @@ class _CurrentWeatherState extends State<CurrentWeather> {
       dewUnit = '°K';
       windUnit = 'm/s';
     }
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -222,13 +226,13 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                         ),
                       ],
                     ),
-                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    if(widget.weatherDataCurrent.current.rain != null || widget.weatherDataCurrent.current.snow!= null)
                     const SizedBox(height: 15,),
-                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    if(widget.weatherDataCurrent.current.rain != null || widget.weatherDataCurrent.current.snow != null)
                     Row(
                       //mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                      if(widget.weatherDataCurrent.current.rain?[0].ih != null)
+                      if(widget.weatherDataCurrent.current.rain != null)
                         Container(
                           width: 60,
                           padding: const EdgeInsets.all(16),
@@ -239,7 +243,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                           ),
                           child: Image.asset("assets/icons/rain.png"),
                         ),
-                        if(widget.weatherDataCurrent.current.snow?[0].ih != null)
+                        if(widget.weatherDataCurrent.current.snow != null)
                         Container(
                           width: 60,
                           padding: const EdgeInsets.all(16),
@@ -252,15 +256,15 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                         ),
                       ],
                     ),
-                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    if(widget.weatherDataCurrent.current.rain != null || widget.weatherDataCurrent.current.snow != null)
                     const SizedBox(
                       height: 10,
                     ),
-                    if(widget.weatherDataCurrent.current.rain?[0].ih != null || widget.weatherDataCurrent.current.snow?[0].ih != null)
+                    if(widget.weatherDataCurrent.current.rain != null || widget.weatherDataCurrent.current.snow != null)
                     Row(
                       //mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        if(widget.weatherDataCurrent.current.rain?[0].ih != null)
+                        if(widget.weatherDataCurrent.current.rain != null)
                         Container(
                           margin: const EdgeInsets.only(left: 32),
                           width: 65,
@@ -268,14 +272,14 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                             children: [
                               const Text("Rain", style: TextStyle(fontWeight: FontWeight.bold),),
                               Text(
-                                "${widget.weatherDataCurrent.current.rain?[0].ih} mm",
+                                "${widget.weatherDataCurrent.current.rain?.d1h} mm",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),
                             ],
                           ),
                         ),
-                        if(widget.weatherDataCurrent.current.snow?[0].ih != null)
+                        if(widget.weatherDataCurrent.current.snow != null)
                         Container(
                           margin: const EdgeInsets.only(left: 65),
                           width: 65,
@@ -283,7 +287,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                             children: [
                               const Text("Snow", style: TextStyle(fontWeight: FontWeight.bold),),
                               Text(
-                                "${widget.weatherDataCurrent.current.snow?[0].ih} mm",
+                                "${widget.weatherDataCurrent.current.snow?.d1h} mm",
                                 style: const TextStyle(fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),

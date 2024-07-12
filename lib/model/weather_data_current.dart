@@ -26,8 +26,8 @@ class Current {
   double? windSpeed;
   double? uvi;
   List<Weather>? weather;
-  List<Rain>? rain;
-  List<Snow>? snow;
+  Rain? rain;
+  Snow? snow;
 
   Current({
     this.dt,
@@ -65,12 +65,12 @@ class Current {
     weather: (json['weather'] as List<dynamic>?)
         ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
         .toList(),
-    rain: (json['rain'] as List<dynamic>?)
-      ?.map((e) => Rain.fromJson(e as Map<String, dynamic>))
-      .toList(),
-    snow: (json['snow'] as List<dynamic>?)
-        ?.map((e) => Snow.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    rain: json['rain'] == null
+        ? null
+        : Rain.fromJson(json['rain'] as Map<String, dynamic>),
+    snow: json['snow'] == null
+        ? null
+        : Snow.fromJson(json['snow'] as Map<String, dynamic>),
   );
 
   Map<String, dynamic> toJson() => {
@@ -88,7 +88,7 @@ class Current {
     'wind_deg': windDeg,
     'uvi':uvi,
     'weather': weather?.map((e) => e.toJson()).toList(),
-    'rain': rain?.map((e) => e.toJson()).toList(),
-    'snow': snow?.map((e) => e.toJson()).toList()
+    'rain': rain?.toJson(),
+    'snow': snow?.toJson()
   };
 }

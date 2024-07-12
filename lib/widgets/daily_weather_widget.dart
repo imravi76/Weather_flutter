@@ -93,6 +93,8 @@ class _DailyWeatherState extends State<DailyWeather> {
     return SizedBox(
       height: listHeight,
       child: ListView.builder(
+        physics: ClampingScrollPhysics(),
+        shrinkWrap: true,
         itemCount: widget.weatherDataDaily.daily.length,
           itemBuilder: (context, index){
           return Column(

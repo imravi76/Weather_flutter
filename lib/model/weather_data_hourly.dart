@@ -24,8 +24,8 @@ class Hourly {
   int? windDeg;
   List<Weather>? weather;
   double? pop;
-  List<Rain>? rain;
-  List<Snow>? snow;
+  Rain? rain;
+  Snow? snow;
 
   Hourly({
     this.dt,
@@ -41,7 +41,7 @@ class Hourly {
     this.weather,
     this.pop,
     this.rain,
-    this.snow
+    this.snow,
   });
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
@@ -59,12 +59,12 @@ class Hourly {
         ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
         .toList(),
     pop: (json['pop'] as num?)?.toDouble(),
-    rain: (json['rain'] as List<dynamic>?)
-        ?.map((e) => Rain.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    snow: (json['snow'] as List<dynamic>?)
-        ?.map((e) => Snow.fromJson(e as Map<String, dynamic>))
-        .toList()
+    rain: json['rain'] == null
+        ? null
+        : Rain.fromJson(json['rain'] as Map<String, dynamic>),
+    snow: json['snow'] == null
+        ? null
+        : Snow.fromJson(json['snow'] as Map<String, dynamic>),
   );
 
   Map<String, dynamic> toJson() => {
@@ -80,7 +80,7 @@ class Hourly {
     'wind_deg': windDeg,
     'weather': weather?.map((e) => e.toJson()).toList(),
     'pop': pop,
-    'rain': rain?.map((e) => e.toJson()).toList(),
-    'snow': snow?.map((e) => e.toJson()).toList(),
+    'rain': rain?.toJson(),
+    'snow': snow?.toJson()
   };
 }

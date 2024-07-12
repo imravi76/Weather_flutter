@@ -1,14 +1,15 @@
-class Snow{
-  double? ih;
+class Snow {
+  double? d1h;
 
-  Snow({this.ih});
+  Snow({this.d1h});
 
-  factory Snow.fromJson(Map<String, dynamic> json) => Snow(
-    ih: (json['1h'] as num?)?.toDouble(),
-  );
+  Snow.fromJson(Map<String, dynamic> json) {
+    d1h = json['1h'];
+  }
 
-  Map<String, dynamic> toJson() => {
-    '1h': ih,
-  };
-
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['1h'] = this.d1h;
+    return data;
+  }
 }

@@ -12,7 +12,7 @@ import 'model/weather_data_hourly.dart';
 
 class FetchWeatherAPI{
 
-  String apiKey = "111e76f07e2c48a7d42b3fedbf8f9f4f";
+  String apiKey = "19063415dbe8507f4bd3e92ad691a57e";
   WeatherData? weatherData;
 
   final storage = LocalStorage('weather_data.json');
@@ -78,6 +78,6 @@ class FetchWeatherAPI{
 String apiURL(var lat, var lon, var apiKey, units){
   String url;
 
-  url = "https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=$apiKey&units=$units&exclude=minutely";
+  url = "https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&appid=$apiKey&units=$units&exclude=minutely";
   return url;
 }
