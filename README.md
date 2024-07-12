@@ -101,7 +101,7 @@ This command will generate an APK file at `build/app/outputs/flutter-apk/app-rel
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the APACHE License. See the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
