@@ -1,6 +1,3 @@
-Here's the complete `README.md` script for your enhanced Flutter weather app, including all the specified features:
-
-```markdown
 # Flutter Weather App
 
 A comprehensive weather application built using Flutter. This app fetches weather data from a weather API and displays it in a user-friendly manner with advanced features like multiple city management, offline caching, and unit settings.
